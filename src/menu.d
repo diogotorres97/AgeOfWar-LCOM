@@ -1,0 +1,2 @@
+
+menu.o:	menu.c
