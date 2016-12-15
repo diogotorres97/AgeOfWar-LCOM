@@ -14,7 +14,7 @@
 #include <math.h>
 #include "const.h"
 #include "bullet.h"
-#include "tower.h"
+
 
 /** @defgroup Unit Unit
  * @{
@@ -23,8 +23,8 @@
  */
 
 
-#define Unit_Speed		7 //Unit speed
-
+#define Unit_Speed		2  //Unit speed
+#define Unit_TYPE1_Range   250 		//units range
 
 typedef enum{
 	attacking,
@@ -35,22 +35,31 @@ typedef enum{
 
 typedef struct Unit{
 
-	unsigned int hp;
-	unsigned int strength;
-	unsigned int type;
-	unsigned int price;
-	unsigned int reward_for_killing;
-	unsigned int exp_for_killing;
-	//unsigned int player;
+	int hp;
+	 int strength;
+	 int type;
+	 int price;
+	 int reward_for_killing;
+	 int exp_for_killing;
+	// int player;
 
-	unsigned int x;
-	unsigned int y;
-	unsigned int vel;
+	int x;
+	int y;
+	int vel;
 
-	unsigned int width;
-	unsigned int height;
+	 int width;
+	 int height;
 
-	unsigned int in_battle;
+	 int in_battle;
+
+	 int player;
+	 int range;
+
+	Bullet* bullets[MAX_BULLETS];
+
+	//A REMOVER E SUBSTITUIR POR MAQUINA DE ESTADOS
+
+	 int killed;
 
 	UnitActualState UnitS;
 
@@ -69,16 +78,16 @@ typedef struct Unit{
  * price - how much does it cost to make this unit
  * reward_for_killing - how much gold does the other player get when kills this unit
  * exp_for_killing - how much exp does the other player get when kills this unit
- * player - to which player this unit belongs, it determines the unit orientation (left or right)
+ * player - to which player (1 or 2) this unit belongs, it determines the unit orientation (left or right)
  * @return pointer to the unit struct
  */
-Unit* InitUnit(unsigned int x, unsigned int y, unsigned int hp, unsigned int strength,	unsigned int type, char* name_unit, unsigned int price,
-		unsigned int reward_for_killing, unsigned int exp_for_killing);
+Unit* InitUnit( int x,  int y, int hp,  int strength,	 int type, char* name_unit,  int price,
+		  int exp_for_killing,  int player);
 
 
 
 /**
- * @brief updates unit coordinates
+ * @brief updates unit x and y
  *
  * @param pointer to unit
  * @return
@@ -91,7 +100,33 @@ void MoveUnit(Unit *u);
  * @param pointer to unit
  * @return
  */
-void DrawUnit(Unit *u);
+void DrawUnit(Unit *u, char* doubleBuffer);
+
+
+/**
+ * @brief adds a bullet to an unit
+ *
+ * @param pointer to the unit object
+ * pointer to the bullet object
+ * @return
+ */
+void addBullets(Unit* u, Bullet* b);
+
+/**
+ * @brief verifies if bullets are empty
+ *
+ * @param pointer to the unit object
+ * @return 1 -> true, 0->false
+ */
+int emptyBullets(Unit* u);
+
+/**
+ * @brief verifies if bullets are full
+ *
+ * @param pointer to the unit object
+ * @return 1 -> true, 0->false
+ */
+int fullBullets(Unit* u);
 
 /**
  * @brief update unit
@@ -102,21 +137,21 @@ void DrawUnit(Unit *u);
 //void updateUnit(Unit *u);
 
 /**
+ * @brief delete a bullet from the array of bullets
+ *
+ * @param pointer to the unit object
+ * @return
+ */
+void removeBullet(Unit* u);
+
+/**
  * @brief sets HP to the arg
  *
  * @param pointer to unit
  * hp - new hp
  * @return
  */
-void unitSetHP(Unit *u, unsigned int new_hp);
-
-/**
- * @brief check if there is collision between an unit and a tower
- *
- * @param pointer to tower
- * @return 1 if yes, 0 otherwise
- */
-int CheckUnitsTowerCollision(Tower *t);
+void unitSetHP(Unit *u, int new_hp);
 
 /**
  * @brief delete unit

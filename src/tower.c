@@ -2,7 +2,7 @@
 
 /******************************* Tower functions *****************************************/
 
-Tower* InitTower(unsigned int x, unsigned int y, unsigned int hp, char* name_tower){
+Tower* InitTower( int x,  int y, int hp, char* name_tower,  int player){
 
 	Tower *t = (Tower *) malloc(sizeof(Tower));
 	/*
@@ -28,15 +28,25 @@ Tower* InitTower(unsigned int x, unsigned int y, unsigned int hp, char* name_tow
 	t->x=x;
 	t->y=y;
 	t->hp=hp;
+	t->player=player;
 	t->width=t->tower_bmp->bitmapInfoHeader.width;
 	t->height=t->tower_bmp->bitmapInfoHeader.height;
 
 	return t;
 }
 
-void drawTower(Tower *t) {
+void drawTower(Tower *t, char* doubleBuffer) {
 
-	drawBitmap(t->tower_bmp, t->x, t->y, ALIGN_LEFT);
+	if(t->player==1)
+
+		drawBitmap(t->tower_bmp, t->x, t->y, ALIGN_LEFT,doubleBuffer);
+	else
+		drawBitmap(t->tower_bmp, t->x, t->y, ALIGN_RIGHT, doubleBuffer);
+}
+
+void towerSetHP(Tower* t, int newHP)
+{
+	t->hp=newHP;
 }
 
 void deleteTower(Tower *t) {

@@ -2,6 +2,105 @@
 
 static int mouse_hook_id;
 
+//Coordenadas centrais do rato
+int x = 512;
+int y = 384;
+
+Mouse* InitMouse() {
+	Mouse *mouse = (Mouse *) malloc(sizeof(Mouse));
+	mouse->x = 512;
+	mouse->y = 384;
+
+	mouse->leftButton_P = 0;
+	mouse->middleButton_P = 0;
+	mouse->rightButton_P = 0;
+
+	mouse->packetCounter = 0;
+
+	mouse->mouseWidth = 22; //tamanho do rato ver!
+	mouse->mouseHeight = 22;
+	mouse->MouseBMP = loadBitmap(getImagePath("Cursor"));
+
+	return mouse;
+}
+
+void deleteMouse(Mouse* mouse) {
+	deleteBitmap(mouse->MouseBMP);
+	free(mouse);
+}
+
+void drawMouse(Mouse* mouse, char* doubleBuffer) {
+	drawBitmap(mouse->MouseBMP, mouse->x, mouse->y, ALIGN_LEFT,doubleBuffer);
+}
+
+void SetPacket(Mouse* mouse) {
+	mouse->packet[mouse->packetCounter] = mouse_get_packets();
+	if (mouse->packetCounter == 0 && !(mouse->packet[mouse->packetCounter] & BIT(3)))
+		return;
+
+	mouse->packetCounter++;
+}
+
+void updateMouse(Mouse* mouse, int menu_flag) {
+	mouse->Xsign = mouse->packet[0] & BIT(4);
+	mouse->Ysign = mouse->packet[0] & BIT(5);
+	mouse->Xdelta = mouse->packet[1];
+	mouse->Ydelta = mouse->packet[2];
+	if (mouse->Xsign)
+		mouse->Xdelta |= (-1 << 8);
+	if (mouse->Ysign)
+		mouse->Ydelta |= (-1 << 8);
+
+	mouse->leftButton_P = mouse->packet[0] & BIT(0);
+	mouse->rightButton_P = mouse->packet[0] & BIT(1);
+	mouse->middleButton_P = mouse->packet[0] & BIT(2);
+
+	if (mouse->Xdelta != 0) {
+		mouse->x += mouse->Xdelta;
+
+		if(menu_flag){
+			if (mouse->x < 5)
+				mouse->x = 5;
+			else if (mouse->x + mouse->mouseWidth > H_RES - 5)
+				mouse->x = H_RES - 5 - mouse->mouseWidth;
+		}
+		else {
+			if (mouse->x < Border)
+				mouse->x = Border;
+			else if (mouse->x + mouse->mouseWidth > H_RES - rightBorder)
+				mouse->x = H_RES - rightBorder - mouse->mouseWidth;
+		}
+	}
+
+	if (mouse->Ydelta != 0) {
+		mouse->y -= mouse->Ydelta;
+
+		if(menu_flag){
+			if (mouse->y < 5)
+				mouse->y = 5;
+			else if (mouse->y + mouse->mouseHeight > V_RES - 5)
+				mouse->y = V_RES - 5 - mouse->mouseHeight;
+		}
+		else {
+			if (mouse->y < Border)
+				mouse->y = Border;
+			else if (mouse->y + mouse->mouseHeight > V_RES - Border)
+				mouse->y = V_RES - Border - mouse->mouseHeight;
+		}
+	}
+
+	mouse->Xdelta = mouse->x - x;
+	mouse->Ydelta = mouse->y - y;
+	x = mouse->x;
+	y = mouse->x;
+}
+
+void resetButtons(Mouse* mouse){
+	mouse->leftButton_P = 0;
+	mouse->rightButton_P = 0;
+	mouse->middleButton_P = 0;
+}
+
 int mouse_subscribe_int(void) {
 
 	mouse_hook_id = MOUSE_HOOK_ID; // atualiza hook_id, passando a ser 5
@@ -23,12 +122,12 @@ int mouse_unsubscribe_int() {
 
 	if (sys_irqdisable(&mouse_hook_id) != OK) {
 		printf("ERROR: disables interrupts failed!\n");
-		return 1;
+		return -1;
 	}
 
 	if (sys_irqrmpolicy(&mouse_hook_id) != OK) {
 		printf("ERROR: unsubscribes a previous subscription failed!\n");
-		return 1;
+		return -1;
 	}
 	return 0;
 }
@@ -90,38 +189,4 @@ int mouse_int_handler(unsigned long cmd){
 }
 
 
-
-/*
-int mouse_int_handler(unsigned long cmd)
-{
-	unsigned long cmd_receive;
-	int i = 0;
-
-	while(1)
-	{
-		mouse_send_command();
-		while(i<TRIES)
-		{
-			mouse_send_args(cmd);
-			cmd_receive= mouse_get_packets(); //para ver se é do Mouse
-
-			if(READ_COMM_BYTE==(READ_COMM_BYTE & cmd_receive)) //se for igual, quer dizer que o byte vem do mouse
-			{
-				if (cmd_receive == MOUSE_NACK) // repete o comando enviado
-				{
-					i++;
-					continue;
-				}
-				else break;
-			}
-			else continue;
-		}
-		if (cmd_receive == MOUSE_ERROR) //erro, volta a repetir todo o processo
-		{
-			continue;
-		}
-		break;
-	}
-
-}*/
 

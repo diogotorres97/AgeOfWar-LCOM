@@ -11,7 +11,7 @@ int timer_set_square(unsigned long timer, unsigned long freq) {
 	if(timer<0||freq<=0||timer>2)
 	{
 		printf("ERROR: Timer invalid or Freq invalid!\n");
-		return 1;
+		return -1;
 	}
 
 	unsigned long control_word;
@@ -104,13 +104,13 @@ int timer_unsubscribe_int() {
 	if (sys_irqdisable(&hook_id) != OK)
 		{
 			printf("ERROR: disables interrupts failed!\n");
-			return 1;
+			return -1;
 		}
 
 	if (sys_irqrmpolicy(&hook_id) != OK)
 	{
 		printf("ERROR: unsubscribes a previous subscription failed!\n");
-		return 1;
+		return -1;
 	}
 
 	return 0;
@@ -126,7 +126,7 @@ int timer_get_conf(unsigned long timer, unsigned char *st) {
 	if(timer<0||timer>2)
 	{
 		printf("ERROR: Timer invalid!\n");
-		return 1;
+		return -1;
 	}
 
 	unsigned long read_back=MASK_ZERO; // variable for configure Read-back Command

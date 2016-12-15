@@ -3,164 +3,138 @@
 Game* InitGame(unsigned int mode) {
 
 	Game* g = (Game*) malloc(sizeof(Game));
-	g->p1 = (Player*) malloc(sizeof(Player));
-	g->p1= InitPlayer(0);
-	g->p2 = (Player*) malloc(sizeof(Player));
+
+	g->p1 = InitPlayer(0);
 	g->p2 = InitPlayer(1);
 
+	//Adaptar InitTower para InitTower 0, 1, 2, 3 leves
+	g->p1->t=InitTower(0, InY, 200, "tower_left_1", 1);
+	g->p2->t=InitTower(1024, InY, 200, "tower_right_1", 2);
 
-	if(subscribeDevices(g))
-		return NULL;
+	g->GameTerrain = (Terrain*) malloc(sizeof(Terrain));
+	g->GameTerrain = InitTerrain(0);
 
-	g->end=false;
-
-	g->back_bmp=loadBitmap(getImagePath("back"));
-
-	unsigned long key;
-
-	if(mode==0)//multiplayer on the same PC
-	{
-		while(g->end==false)
-		{
-			gameInterruptHandler(g, &key);
-
-			//&& timer_counter%TIMER_DEFAULT_FREQ==0 && g->created_unit==1
-			if(g->timer_flag==1 ) //a second passed
-			{
-				clearDoubleBuffer();
-				updateGame(g);
-				drawGame(g);
-				//drawMouse(g);
-				updateScreenBuffer();
-/*
-				if(towerGetHP(g->p1->t)==0 || towerGetHP(g->p2->t)==0)
-				{
-					g->end=true;
-
-				} */
-				g->timer_flag = 0;
-				g->created_unit=0;
-			}
-
-			if(g->kbd_flag)
-			{
-				if(key==KEY_RELEASED(KEY_ESC))
-				{
-					g->end=true;
-				}
-				else
-				{
-					if(key==KEY_RELEASED(KEY_P))
-					{
-						g->pause=true;
-					}
-					else
-					{
-						kbdInterruptHandler(g, key);
-					}
-				}
-				g->kbd_flag=0;
-			}
-		}
-	}
-
-	unsubscribeDevices(g);
+	g->gameBuffer = (char*)malloc(VRAM_SIZE);
 
 	return g;
-
 }
 
-int subscribeDevices(Game* g)
-{
-	g->irq_timer=timer_subscribe_int();
-	g->irq_timer=BIT(g->irq_timer);
-	g->irq_mouse = mouse_subscribe_int();
-	g->irq_mouse = BIT(g->irq_mouse);
-	g->irq_kbd = kbd_subscribe_int();
-	g->irq_kbd = BIT(g->irq_kbd);
-
-	if (g->irq_timer == -1 || g->irq_kbd == -1 || g->irq_mouse == -1)
-		return 1;
-
-
-
-	g->timer_flag=g->kbd_flag=g->mouse_flag=g->timer_cntr=g->created_unit=0;
-
-	return 0;
-}
-
-void unsubscribeDevices(Game* g)
-{
-	kbd_unsubscribe_int();
-	timer_unsubscribe_int();
-	//MS_to_KBD_Commands(MS_DSB_STREAM_M);
-	mouse_unsubscribe_int();
-	//deleteMouse(g->ms);
-}
-
-void gameInterruptHandler(Game* g, unsigned long *key)
-{
-	int ipc_status, r;
-	bool two_byte_flag=false;
-	message msg;
-	timer_set_square(0, TIMER_DEFAULT_FREQ);
-
-	while (1) {
-		r = driver_receive(ANY, &msg, &ipc_status);
-		if (r != 0) {
-			printf("driver_receive failed with: %d", r);
-			continue;
-		}
-		if (is_ipc_notify(ipc_status)) {
-			switch (_ENDPOINT_P(msg.m_source)) {
-			case HARDWARE:
-				if (msg.NOTIFY_ARG & g->irq_timer) {
-					g->timer_cntr++;
-					g->timer_flag = 1;
-				}
-				/*if (msg.NOTIFY_ARG & g->irq_mouse) {
-						SetPacket(g->ms);
-						if (g->ms->packetCounter > 2) {
-							g->mouse_flag = 1;
-						}
-					}*/
-				if (msg.NOTIFY_ARG & g->irq_kbd) {
-					*key = kbc_get_status_codes();
-
-					if (*key == FIRST_OF_TWO_BYTE_SCANCODES) {
-						two_byte_flag = true;
-					} else if (two_byte_flag) {
-						*key |= FIRST_OF_TWO_BYTE_SCANCODES << 8;
-						two_byte_flag = false;
-						g->kbd_flag = 1;
-					} else {
-						g->kbd_flag = 1;
-					}
-				}
-
-				break;
-	 		default:
-				break; /* no other notifications expected: do nothing */
-			}
-		}
-
-
-	}
-}
 
 void kbdInterruptHandler(Game* g, unsigned long key)
 {
+
 	switch(key)
 	{
-	case KEY_RELEASED(KEY_1):
-						if(!(is_full_gqueue(g->p1->units))) //may create units
-						{
-							Unit* u=(Unit*) malloc (sizeof(Unit));
-							u=InitUnit(InX_P1, InY_P1, 30, 10, 0, "lvl1_1", 15, 20, 50);
-							put_gqueue(g->p1->units, u);
-							//g->created_unit=1;
-						}
-	break;
+	case KEY_PRESSED(KEY_1):
+																																																									{
+		if(!fullUnits(g->p1)) //may create units
+		{
+			switch(g->p1->level)
+			{
+			case 1:
+				if(g->p1->money >= 15)
+				{
+
+					Unit* u = InitUnit(InX_P1, In_Units_Y, 45, 9, 0, "lvl1_1_l", 15, 45, 1);
+					addUnits(g->p1, u);
+					setMoney(g->p1, -15);
+
+
+				}
+				break;
+			case 2:
+
+				break;
+			case 3:
+
+				break;
+
+			}
+		}
+		break;
+																																																									}
+	case KEY_PRESSED(KEY_2):
+																																																									{
+		if(!fullUnits(g->p1)) //may create units
+		{
+			switch(g->p1->level)
+			{
+			case 1:
+				if(g->p1->money >= 25)
+				{
+
+					Unit* u = InitUnit(InX_P1, In_Units_Y, 75, 19, 1, "lvl1_2_l", 25, 75, 1);
+					addUnits(g->p1, u);
+					setMoney(g->p1, -25);
+
+				}
+				break;
+			case 2:
+
+				break;
+			case 3:
+
+				break;
+
+			}
+		}
+		break;
+																																																									}
+	case KEY_PRESSED(KEY_J):
+
+																																																							{
+		if(!fullUnits(g->p2)) //may create units
+		{
+			switch(g->p2->level)
+			{
+			case 1:
+				if(g->p2->money >= 15)
+				{
+
+					Unit* u = InitUnit(InX_P2, In_Units_Y, 45, 9, 0, "lvl1_1_r", 15, 45, 2);
+					addUnits(g->p2, u);
+					setMoney(g->p2, -15);
+
+				}
+				break;
+			case 2:
+
+				break;
+			case 3:
+
+				break;
+
+			}
+		}
+		break;
+																																																							}
+	case KEY_PRESSED(KEY_K):
+																																																								{
+		if(!fullUnits(g->p2)) //may create units
+		{
+			switch(g->p2->level)
+			{
+			case 1:
+				if(g->p2->money >= 25)
+				{
+
+					Unit* u = InitUnit(InX_P2, In_Units_Y, 75, 19, 1, "lvl1_2_r", 25, 75, 2);
+					addUnits(g->p2, u);
+					setMoney(g->p2, -25);
+
+				}
+				break;
+			case 2:
+
+				break;
+			case 3:
+
+				break;
+
+			}
+		}
+		break;
+																																																								}
 	default:
 		break;
 	}
@@ -168,26 +142,563 @@ void kbdInterruptHandler(Game* g, unsigned long key)
 
 void updateGame(Game* g)
 {
-	/*Unit* u=(Unit*) malloc (sizeof(Unit));
-	get_front(g->p1->units, u);
-	MoveUnit(u);
-	deleteUnit(u);
-*/
+	int counter=0;
+	if(!(emptyUnits(g->p1)) && emptyUnits(g->p2))
+	{
+		counter=0;
+		while(counter<MAX_UNITS)
+		{
+			if(g->p1->units[counter]!=NULL)
+			{
+
+				if((g->p1->units[counter]->type==1) && (checkUnitTowerRange(g->p1->units[counter], g->p2->t)))
+				{
+
+
+					if(emptyBullets(g->p1->units[counter]))
+					{
+						if(g->timer_cntr%60==0){
+
+							Bullet* b= InitBullet(g->p1->units[counter]->x+g->p1->units[counter]->width, g->p1->units[counter]->y, g->p1->units[counter]->strength, 1, 2, "bullet");
+							addBullets(g->p1->units[counter], b);}
+					}
+					else
+					{
+						if(!checkBulletsTowerCollision(g->p1->units[counter]->bullets[0], g->p2->t))
+						{
+							moveBullet(g->p1->units[counter]->bullets[0]);
+						}
+						else
+						{
+
+							towerSetHP(g->p2->t, g->p2->t->hp - g->p1->units[counter]->bullets[0]->strength);
+							removeBullet(g->p1->units[counter]);
+						}
+					}
+
+				}
+				if(!checkUnitsTowerCollision(g->p1->units[0], g->p2->t))
+				{
+
+
+					if(counter!=0)
+					{
+						if(!checkUnitCollisionSamePlayer(g->p1->units[counter], g->p1->units[counter-1], 1))
+						{
+							MoveUnit(g->p1->units[counter]);
+						}
+					}
+					else
+					{
+						MoveUnit(g->p1->units[counter]);
+
+					}
+
+
+				}
+				else
+				{
+					if(g->timer_cntr%30==0){
+						towerSetHP(g->p2->t, g->p2->t->hp - g->p1->units[0]->strength);
+					}
+					if(counter!=0)
+					{
+						if(!checkUnitCollisionSamePlayer(g->p1->units[counter], g->p1->units[counter-1], 1))
+						{
+							MoveUnit(g->p1->units[counter]);
+						}
+					}
+				}
+
+
+			}
+
+			counter++;
+
+
+		}
+
+
+	}
+	else
+	{
+		if(emptyUnits(g->p1) && !(emptyUnits(g->p2)))
+		{
+			counter=0;
+			while(counter<MAX_UNITS)
+			{
+				if(g->p2->units[counter]!=NULL)
+				{
+					if((g->p2->units[counter]->type==1) && (checkUnitTowerRange(g->p2->units[counter], g->p1->t)))
+					{
+
+
+						if(emptyBullets(g->p2->units[counter]))
+						{
+							if(g->timer_cntr%60==0){
+								Bullet* b= InitBullet(g->p2->units[counter]->x - g->p2->units[counter]->width, g->p2->units[counter]->y, g->p2->units[counter]->strength, 2, 2, "bullet");
+								addBullets(g->p2->units[counter], b);
+							}
+						}
+						else
+						{
+							if(!checkBulletsTowerCollision(g->p2->units[counter]->bullets[0], g->p1->t))
+							{
+
+								moveBullet(g->p2->units[counter]->bullets[0]);
+
+							}
+							else
+							{
+
+								towerSetHP(g->p1->t, g->p1->t->hp - g->p2->units[counter]->bullets[0]->strength);
+								removeBullet(g->p2->units[counter]);
+							}
+						}
+
+					}
+					if(!checkUnitsTowerCollision(g->p2->units[0], g->p1->t))
+					{
+
+
+						if(counter!=0)
+						{
+							if(!checkUnitCollisionSamePlayer(g->p2->units[counter], g->p2->units[counter-1], 2))
+							{
+								MoveUnit(g->p2->units[counter]);
+							}
+						}
+						else
+						{
+							MoveUnit(g->p2->units[counter]);
+
+						}
+					}
+					else
+					{
+						if(g->timer_cntr%30==0){
+							towerSetHP(g->p1->t, g->p1->t->hp - g->p2->units[0]->strength);
+						}
+						if(counter!=0)
+						{
+							if(!checkUnitCollisionSamePlayer(g->p2->units[counter], g->p2->units[counter-1], 2))
+							{
+								MoveUnit(g->p2->units[counter]);
+							}
+						}
+					}
+				}
+
+				counter++;
+
+
+			}
+
+
+		}
+		else
+		{
+			if(!(emptyUnits(g->p1)) && !(emptyUnits(g->p2)))
+			{
+				counter=0;
+				while(counter<MAX_UNITS)
+				{
+
+					if(!(emptyUnits(g->p1)) && !(emptyUnits(g->p2)))
+					{
+						if(g->p1->units[counter]!=NULL)
+						{
+							if((g->p1->units[counter]->type==1) && (checkUnitEnemyUnitRange(g->p1->units[counter], g->p2->units[0])) && !checkUnitCollision(g->p1->units[counter], g->p2->units[0]))
+							{
+
+								if(emptyBullets(g->p1->units[counter]))
+								{
+
+									if(g->timer_cntr%60==0){
+
+										Bullet* b= InitBullet(g->p1->units[counter]->x+g->p1->units[counter]->width, g->p1->units[counter]->y, g->p1->units[counter]->strength, 1, 2, "bullet");
+										addBullets(g->p1->units[counter], b);}
+								}
+								else
+								{
+									if(!checkBulletsUnitsCollision(g->p1->units[counter]->bullets[0], g->p2->units[0]))
+									{
+
+										moveBullet(g->p1->units[counter]->bullets[0]);
+									}
+									else
+									{
+										if(g->p2->units[0]->killed)
+										{
+											setMoney(g->p1, g->p2->units[0]->reward_for_killing);
+											removeUnit(g->p2);
+										}
+										else
+										{
+											unitSetHP(g->p2->units[0], g->p2->units[0]->hp - g->p1->units[counter]->bullets[0]->strength);
+										}
+										removeBullet(g->p1->units[counter]);
+
+									}
+								}
+							}
+						}
+
+						if(g->p2->units[counter]!=NULL)
+						{
+							if((g->p2->units[counter]->type==1) && (checkUnitEnemyUnitRange(g->p2->units[counter], g->p1->units[0])) && !checkUnitCollision(g->p2->units[counter], g->p1->units[0] ))
+							{
+
+								if(emptyBullets(g->p2->units[counter]))
+								{
+									if(g->timer_cntr%60==0){
+
+										Bullet* b= InitBullet(g->p2->units[counter]->x-g->p2->units[counter]->width, g->p2->units[counter]->y, g->p2->units[counter]->strength, 2, 2, "bullet");
+										addBullets(g->p2->units[counter], b);}
+								}
+								else
+								{
+									if(!checkBulletsUnitsCollision(g->p2->units[counter]->bullets[0], g->p1->units[0]))
+									{
+										moveBullet(g->p2->units[counter]->bullets[0]);
+									}
+									else
+									{
+										if(g->p1->units[0]->killed)
+										{
+											setMoney(g->p2, g->p1->units[0]->reward_for_killing);
+											removeUnit(g->p1);
+										}
+										else
+										{
+											unitSetHP(g->p1->units[0], g->p1->units[0]->hp - g->p2->units[counter]->bullets[0]->strength);
+										}
+
+										removeBullet(g->p2->units[counter]);
+
+									}
+								}
+							}
+						}
+						if(checkUnitCollision(g->p1->units[0], g->p2->units[0]))
+						{
+							if(g->timer_cntr%30==0){
+								battleBetweenUnits(g->p1->units[0], g->p2->units[0]);
+								if(g->p1->units[0]->killed)
+								{
+
+									setMoney(g->p2, g->p1->units[0]->reward_for_killing);
+									removeUnit(g->p1);
+
+
+								}
+								else
+								{
+									if(g->p2->units[0]->killed)
+									{
+
+										setMoney(g->p1, g->p2->units[0]->reward_for_killing);
+										removeUnit(g->p2);
+
+									}
+								}
+
+							}
+						}
+						else
+						{
+							if(counter==0)
+							{
+								if(checkUnitsTowerCollision(g->p1->units[0], g->p2->t))
+								{
+									if(g->timer_cntr%30==0){
+										towerSetHP(g->p2->t, g->p2->t->hp - g->p1->units[0]->strength);
+									}
+								}
+								else
+								{
+									MoveUnit(g->p1->units[counter]);
+								}
+
+								if(checkUnitsTowerCollision(g->p2->units[0], g->p1->t))
+								{
+									if(g->timer_cntr%30==0){
+										towerSetHP(g->p1->t, g->p1->t->hp - g->p2->units[0]->strength);
+									}
+								}
+								else
+								{
+									MoveUnit(g->p2->units[counter]);
+								}
+
+
+							}
+						}
+
+						if(g->p1->units[counter]!=NULL)
+						{
+							if(counter!=0)
+							{
+								if(!checkUnitCollisionSamePlayer(g->p1->units[counter], g->p1->units[counter-1], 1))
+								{
+									MoveUnit(g->p1->units[counter]);
+								}
+							}
+
+						}
+
+						if(g->p2->units[counter]!=NULL)
+						{
+							if(counter!=0)
+							{
+								if(!checkUnitCollisionSamePlayer(g->p2->units[counter], g->p2->units[counter-1], 2))
+								{
+									MoveUnit(g->p2->units[counter]);
+								}
+							}
+
+						}
+
+					}
+					else
+					{
+
+
+						if(g->p1->units[counter]!=NULL)
+						{
+							if(!checkUnitsTowerCollision(g->p1->units[0], g->p2->t))
+							{
+								if(counter!=0)
+								{
+									if(!checkUnitCollisionSamePlayer(g->p1->units[counter], g->p1->units[counter-1], 1))
+									{
+										MoveUnit(g->p1->units[counter]);
+									}
+								}
+								else
+								{
+									MoveUnit(g->p1->units[counter]);
+
+								}
+							}
+							else
+							{
+								if(g->timer_cntr%30==0){
+									towerSetHP(g->p2->t, g->p2->t->hp - g->p1->units[0]->strength);
+								}
+								if(counter!=0)
+								{
+									if(!checkUnitCollisionSamePlayer(g->p1->units[counter], g->p1->units[counter-1], 1))
+									{
+										MoveUnit(g->p1->units[counter]);
+									}
+								}
+							}
+						}
+
+						if(g->p2->units[counter]!=NULL)
+						{
+							if(!checkUnitsTowerCollision(g->p2->units[0], g->p1->t))
+							{
+								if(counter!=0)
+								{
+									if(!checkUnitCollisionSamePlayer(g->p2->units[counter], g->p2->units[counter-1], 2))
+									{
+										MoveUnit(g->p2->units[counter]);
+									}
+								}
+								else
+								{
+									MoveUnit(g->p2->units[counter]);
+
+								}
+							}
+							else
+							{
+								if(g-> timer_cntr%30==0){
+									towerSetHP(g->p1->t, g->p1->t->hp - g->p2->units[0]->strength);
+								}
+								if(counter!=0)
+								{
+									if(!checkUnitCollisionSamePlayer(g->p2->units[counter], g->p2->units[counter-1], 2))
+									{
+										MoveUnit(g->p2->units[counter]);
+									}
+								}
+							}
+
+						}
+
+
+
+					}
+
+					counter++;
+
+				}
+
+			}
+
+
+		}
+	}
 }
 
+
+
 void drawGame(Game* g)
-{/*
-	drawBitmap(g->back_bmp, 0, 0, ALIGN_LEFT);
-	Unit* u=(Unit*) malloc (sizeof(Unit));
-	get_front(g->p1->units, u);
-	DrawUnit(u);
-	deleteUnit(u);*/
+{
+
+	drawTerrain(g->GameTerrain, g->gameBuffer);
+
+
+
+
+	if(!(emptyUnits(g->p1)))
+	{
+		int counter=0;
+		while(counter<MAX_UNITS)
+		{
+			if(g->p1->units[counter]!=NULL)
+			{
+				if(!emptyBullets(g->p1->units[counter]))
+					drawBullet(g->p1->units[counter]->bullets[0],g->gameBuffer);
+				DrawUnit((g->p1)->units[counter],g->gameBuffer);
+
+			}
+			counter++;
+		}
+	}
+
+	if(!(emptyUnits(g->p2)))
+	{
+		int counter=0;
+		while(counter<MAX_UNITS)
+		{
+			if(g->p2->units[counter]!=NULL)
+			{
+				if(!emptyBullets(g->p2->units[counter]))
+					drawBullet(g->p2->units[counter]->bullets[0],g->gameBuffer);
+				DrawUnit((g->p2)->units[counter],g->gameBuffer);
+
+			}
+			counter++;
+		}
+	}
+
+	drawTower(g->p1->t,g->gameBuffer);
+
+	drawTower(g->p2->t,g->gameBuffer);
+
 }
 
 void deleteGame(Game* g)
 {
 	deletePlayer(g->p1);
 	deletePlayer(g->p2);
-	free(g->back_bmp);
+	deleteTerrain(g->GameTerrain);
 	free(g);
 }
+
+int checkUnitCollision(Unit* u1, Unit* u2)
+{
+	if(u1->player==1)
+	{
+		if((u1->x + u1->width) >= (u2->x - u2->width))
+		{
+
+			return 1;
+		}
+	}
+	else
+	{
+		if((u1->x - u1->width) <= (u2->x + u2->width))
+		{
+
+			return 1;
+		}
+	}
+	return 0;
+}
+
+int checkUnitEnemyUnitRange(Unit* u1, Unit* u2)
+{
+	if(u1->player==1)
+	{
+		if((u1->x+u1->width+u1->range) >= (u2->x - u2->width))
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		if((u1->x-u1->width-u1->range) <= (u2->x + u2->width))
+		{
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
+void battleBetweenUnits(Unit* u1, Unit* u2)
+{
+
+	unitSetHP(u1, u1->hp - (rand() % 3 + u2->strength));
+	unitSetHP(u2, u2->hp - (rand() % 3 + u1->strength));
+
+	if((u1->hp<=0) && (u2->hp<=0))
+	{
+
+		int unit_victory=rand() % 2;
+
+		if(unit_victory==0)
+		{
+			unitSetHP(u1, 1);
+			u2->killed=1;
+		}
+		else
+		{
+			unitSetHP(u2, 1);
+			u1->killed=1;
+		}
+	}
+	else
+	{
+		if(u1->hp<=0)
+		{
+
+			u1->killed=1;
+		}
+		else
+		{
+			if(u2->hp<=0)
+			{
+
+				u2->killed=1;
+			}
+		}
+	}
+
+
+}
+
+int checkBulletsUnitsCollision(Bullet* b, Unit* u)
+{
+	if(u->player==1)
+	{
+		if(b->x-b->width <= u->x+u->width)
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		if(b->x+b->width >= u->x-u->width)
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+

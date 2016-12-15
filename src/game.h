@@ -19,6 +19,8 @@
 #include "keyboard.h"
 #include "player.h"
 #include "gqueue.h"
+#include "terrain.h"
+#include "video_gr.h"
 
 #include "math.h"
 
@@ -32,31 +34,17 @@
 typedef struct {
 	Player* p1;
 	Player* p2;
+	Terrain* GameTerrain;
 
 	unsigned int mode;
 
-
-	//irqs
-
-	int irq_timer;
-	int irq_mouse;
-	int irq_kbd;
-
-
-	int timer_flag;
-	int kbd_flag;
-	int mouse_flag;
-	int timer_cntr;
 	int created_unit;
+	int timer_cntr;
 
-	bool end;
-	bool pause;
-
+	char* gameBuffer;
 
 	//gqueue_t *types_of_units=new_gqueue(NUM_TYPES_UNITS, sizeof(Unit));
 
-
-	Bitmap* back_bmp;
 } Game;
 
 
@@ -93,53 +81,50 @@ void drawGame(Game* g);
 void deleteGame(Game* g);
 
 /**
+ * @brief check if there is collision between 2 units
+ *
+ * @param u1 - pointer to unit from player 1
+ * u2 - pointer to unit from player 2
+ * @return 1 if true, 0 if false
+ */
+int checkUnitCollision(Unit* u1, Unit* u2);
+
+/**
+ * @brief check if the enemy unit is inside of the first players unit range
+ *
+ * @param u1 - pointer to unit of type 1
+ * u2 - u1 - pointer to the other unit
+ * @return 1 if true, 0 if false
+ */
+int checkUnitEnemyUnitRange(Unit* u1, Unit* u2);
+
+/**
+ * @brief simulates the battle between 2 units
+ *
+ * @param u1 - pointer to unit from player 1
+ * u2 - pointer to unit from player 2
+ * @return
+ */
+void battleBetweenUnits(Unit* u1, Unit* u2);
+
+/**
+ * @brief check if there is collision between a bullet and an unit
+ *
+ * @param b - pointer to bullet
+ * u - pointer to unit
+ * @return 1 if true, 0 if false
+ */
+int checkBulletsUnitsCollision(Bullet* b, Unit* u);
+
+/**
  * @brief deals with all the hardware interrupts
  *
  * @param pointer to the game struct
  * key - if a key is pressed or released its code is stored in key
  * @return
  */
-void gameInterruptHandler(Game* g, unsigned long *key);
 
-/**
- * @brief creates the actions for each released key
- *
- * @param pointer to the game struct
- * key - key that was released
- * @return
- */
 void kbdInterruptHandler(Game* g, unsigned long key);
-
-/**
- * @brief check if there is collision between 2 units
- *
- * @param u1, u2 - pointers to units
- * @return 1 if true, 0 if false
- */
-int checkUnitCollision(Unit* u1, Unit* u2);
-
-/**
- * @brief subscribes the devices
- *
- * @param pointer to the game struct
- * @return 1 if error, 0 if OK
- */
-int subscribeDevices(Game* g);
-
-/**
- * @brief unsubscribes the devices
- *
- * @param pointer to the game struct
- * @return
- */
-void unsubscribeDevices(Game* g);
-
-/**
- * @brief creates the queue with the types of units
- *
- * @param pointer to the game struct
- * @return
- */
 
 //void createUnitTypes(Game* g);
 

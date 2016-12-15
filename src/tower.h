@@ -23,51 +23,48 @@
 
 typedef struct Tower{
 
-	unsigned int hp;
-	unsigned int x;
-	unsigned int y;
+	int hp;
+	 int x;
+	 int y;
+	 int player;
 
-	unsigned int width;
-	unsigned int height;
+	 int width;
+	 int height;
 
 	Bitmap* tower_bmp;
 
 }Tower;
 
 /**
- * @brief initiates unit object
+ * @brief initiates tower object
  *
  * @param x_pos - tower position in x
  * y_pos - tower position in y
  * hp - tower initial hp
+ * name_tower - name of tower's image
+ * player - to which player (1 or 2) this tower belongs, it determines the unit orientation (left or right)
 
  * @return pointer to the unit struct
  */
-Tower* InitTower(unsigned int x, unsigned int y, unsigned int hp, char* name_tower);
+Tower* InitTower( int x,  int y, int hp, char* name_tower,  int player);
 
 /**
- * @brief updates unit coordinates
+ * @brief updates tower coordinates
  *
  * @param
  * @return
  */
-void DrawTower(Tower *t);
+void DrawTower(Tower *t, char* doubleBuffer);
 
-/**
- * @brief update unit
- *
- * @param pointer to unit
- * @return
- */
-void updateTower(Tower *t);
 
 /**
  * @brief sets HP to the arg
  *
- * @param hp - new hp
+ * @param t - pointer to tower
+ * hp - new hp
  * @return
  */
-void towerSetHP(unsigned int hp);
+void towerSetHP(Tower* t, int newHP);
 
 /**
  * @brief check if there is collision between an unit and a tower

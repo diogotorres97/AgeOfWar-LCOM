@@ -1,2 +1,0 @@
-
-special.o:	special.c

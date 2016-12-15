@@ -6,7 +6,8 @@
 #include <limits.h>
 #include <string.h>
 #include <errno.h>
-#include "game.h"
+//#include "game.h"
+#include "AgeOfWar.h"
 
 //#include "pixmap.h"
 
@@ -21,17 +22,18 @@ int main() {
 	sys_enable_iop(SELF);
 
 	vg_init(0x117);
-	Game* g = (Game*) malloc(sizeof(Game));
-	//Bitmap* test=loadBitmap(getImagePath("back1"));
+	AgeOfWar* aow = (AgeOfWar*) malloc(sizeof(AgeOfWar));
+	aow = InitAgeOfWar();
 
-	g=InitGame(0);
+	while(aow->currentState != Exit_S){
+		updateAgeOfWar(aow);
+	}
+	deleteAgeOfWar(aow);
 
-	//drawBitmap(test, 0, 0, ALIGN_LEFT);
-	//vg_fill_square(500, 500, 100, 10);
-	//sleep(2);
-	//deleteBitmap(test);
-	deleteGame(g);
-	vg_exit();
+
+	if(vg_exit() != 0)
+		return 1;
+	return 0;
 
 
 	return 0;

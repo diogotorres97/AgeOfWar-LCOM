@@ -1,21 +1,12 @@
 #include <minix/syslib.h>
-
 #include <minix/drivers.h>
-
 #include <machine/int86.h>
-
 #include <sys/mman.h>
-
 #include <sys/types.h>
-
 #include <stdint.h>
-
 #include "vbe.h"
-
 #include "video_gr.h"
-
 #include "pixmap.h"
-
 #include "read_xpm.h"
 
 /* Constants for VBE 0x105 mode */
@@ -37,8 +28,6 @@
 
 
 /* Private global variables */
-
-static char *double_buffer; /* the double buffer */
 
 static char *video_mem;                /* Process address to which VRAM is mapped */
 
@@ -105,7 +94,7 @@ void *vg_init(unsigned short mode){
 	/*Map memory*/
 
 	video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
-	double_buffer=(char*)malloc(vram_size);
+
 
 	if(video_mem == MAP_FAILED)
 
@@ -248,7 +237,8 @@ int vg_set_color(unsigned short xi, unsigned short yi, unsigned short width, uns
 
 }
 
-void* getDoubleBuffer() {
+void* initDoubleBuffer() {
+	char* double_buffer=(char*)malloc(h_res * v_res*bits_per_pixel/8);
 	return double_buffer;
 }
 
@@ -257,11 +247,11 @@ void* getVideoMem(){
 }
 
 
-void updateScreenBuffer(){
+void updateScreenBuffer(char* double_buffer){
 	memcpy(video_mem, double_buffer, h_res * v_res*bits_per_pixel/8);
 }
 
-void clearDoubleBuffer(){
+void clearDoubleBuffer(char* double_buffer){
 	memset(double_buffer, 0, h_res * v_res * bits_per_pixel/8);
 }
 

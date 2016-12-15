@@ -1,2 +1,0 @@
-
-bullet.o:	bullet.c

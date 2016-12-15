@@ -16,14 +16,19 @@
 
 /* CONSTANTS RELATED TO THE GAME */
 
-#define MAX_UNITS     7
+#define MAX_UNITS     10
+
+#define MAX_BULLETS    1
 
 #define NUM_TYPES_UNITS     15
 
-#define InX_P1		70 //Unit initial x for player 1
-#define InY_P1 		680 //Unit initial y for player 1
-#define InX_P2		950 //Unit initial x for player 2
-#define InY_P2 		680 //Unit initial y for player 2
+#define InY			500 //Initial y for objects
+
+#define InX_P1		0 //Unit initial x for player 1
+#define InX_P2		1024 //Unit initial x for player 2
+#define In_Units_Y 		600 //Unit initial y
+
+
 
 
 /* TIMER MACROS */
@@ -147,7 +152,7 @@
 
 #define SYS BIT(2)//System flag: 0 if system in power-on reset ; 1 if system already initialized
 
-#define IBF BIT(1) //Input buffer full donâ€™t write commands or arguments
+#define IBF BIT(1) //Input buffer full don’t write commands or arguments
 
 #define OBF BIT(0) //Output buffer full - data available for reading
 
@@ -170,11 +175,13 @@
 
 #define VRAM_PHYS_ADDR        0xE0000000
 
-#define H_RES             1024
+#define H_RES					1024
 
-#define V_RES                  768
+#define V_RES					768
 
 #define BITS_PER_PIXEL          8
+
+#define VRAM_SIZE 			H_RES*V_RES*BITS_PER_PIXEL/8
 
 /*Mouse constants */
 

@@ -38,19 +38,19 @@ void* getVideoMem();
  * @return buffer pointer
  */
 
-void* getDoubleBuffer();
+void* initDoubleBuffer();
 
 /**
  * @brief clear double buffer
  * @return
  */
-void clearDoubleBuffer();
+void clearDoubleBuffer(char* double_buffer);
 
 /**
  * @brief updates screen with the double buffer
  * @return
  */
-void updateScreenBuffer();
+void updateScreenBuffer(char* double_buffer);
 
 /**
  * @brief clears video mem

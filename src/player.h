@@ -27,15 +27,19 @@
 
 typedef struct {
 
-	gqueue_t *units;
+	//gqueue_t *units;
+
+	Unit* units[MAX_UNITS];
+
+	unsigned int level;
 
 	Tower* t;
 	//Special* s;
 	//Defense* d;
 
 	unsigned int side; //0-> left, 1->right
-	unsigned int money;
-	unsigned int experience;
+	int money;
+	int experience;
 
 
 } Player;
@@ -50,12 +54,13 @@ typedef struct {
 Player* InitPlayer(unsigned int side);
 
 /**
- * @brief update plaer
+ * @brief sets this player money to newMoney
  *
- * @param pointer to the player object
+ * @param p- pointer to the player object
+ * newMoney - money to set
  * @return
  */
-void updatePlayer(Player* p);
+void setMoney(Player* p, int newMoney);
 
 /**
  * @brief deletes the player
@@ -66,6 +71,14 @@ void updatePlayer(Player* p);
 void deletePlayer(Player* p);
 
 /**
+ * @brief sets the player current level
+ *
+ * @param pointer to the player object
+ * level to set
+ * @return
+ */
+void setLevel(Player* p, unsigned int level);
+/**
  * @brief adds an unit to the queue of units
  *
  * @param pointer to the player object
@@ -75,13 +88,72 @@ void deletePlayer(Player* p);
 void addUnits(Player* p, Unit* u);
 
 /**
- * @brief delete an unit from the queue of units
+ * @brief verifies if units are empty
  *
  * @param pointer to the player object
- * pointer to the unit object
+ * @return 1 -> true, 0->false
+ */
+int emptyUnits(Player* p);
+
+/**
+ * @brief verifies if units are full
+ *
+ * @param pointer to the player object
+ * @return 1 -> true, 0->false
+ */
+int fullUnits(Player* p);
+
+/**
+ * @brief gives the new unit position
+ *
+ * @param pointer to the player object
+ * @return position of the new unit
+ */
+int newPosUnit(Player* p);
+
+/**
+ * @brief check if there is collision between 2 units
+ *
+ * @param u1, u2 - pointers to units
+ * player - indicates the side of the player (1-> left, 2-> right)
+ * @return 1 if true, 0 if false
+ */
+int checkUnitCollisionSamePlayer(Unit* u1, Unit* u2, int player);
+
+/**
+ * @brief check if there is collision between an unit and a tower
+ *
+ * @param u - pointer to unit
+ * t - pointer to tower
+ * @return 1 if true, 0 if false
+ */
+int checkUnitsTowerCollision(Unit* u, Tower* t);
+
+/**
+ * @brief check if there is collision between a bullet and an unit
+ *
+ * @param b - pointer to bullet
+ * t - pointer to tower
+ * @return 1 if true, 0 if false
+ */
+int checkBulletsTowerCollision(Bullet* b, Tower* t);
+
+/**
+ * @brief check if the tower is inside of the unit range
+ *
+ * @param u - pointer to unit
+ * t - pointer to tower
+ * @return 1 if true, 0 if false
+ */
+int checkUnitTowerRange(Unit* u, Tower* t);
+
+/**
+ * @brief delete an unit from the array of units
+ *
+ * @param pointer to the player object
  * @return
  */
-void deleteUnits(Player* p, Unit* u);
+void removeUnit(Player* p);
 
 /**
  * @brief sets the tower

@@ -35,7 +35,7 @@ int put_gqueue(gqueue_t	*q, void* el);
 
 int get_gqueue(gqueue_t *q, void*el);
 
-int get_front(gqueue_t *q, void*el)
+//int get_front(gqueue_t *q, void*el)
 
 static void adjust_gqueue(gqueue_t *q);
 

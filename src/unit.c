@@ -2,28 +2,15 @@
 
 /******************************* Unit functions *****************************************/
 
-Unit* InitUnit(unsigned int x, unsigned int y, unsigned int hp, unsigned int strength,unsigned int type, char* name_unit,
-		unsigned int price, unsigned int reward_for_killing, unsigned int exp_for_killing){
+Unit* InitUnit( int x,  int y, int hp,  int strength, int type, char* name_unit,
+		 int price,  int exp_for_killing,  int player){
 
 	Unit *u = (Unit *) malloc(sizeof(Unit));
-	/*
-	char* name_of_image_stopped;
-	char* name_of_image_moving;
 
-	name_of_image_stopped=malloc(strlen(PATH)+strlen(name_unit)+strlen(IMG_STPD)+strlen(BMP_EXT)+1);
-	strcpy(name_of_image_stopped, PATH);
-	strcat(name_of_image_stopped, name_unit);
-	strcat(name_of_image_stopped, IMG_STPD);
-	strcat(name_of_image_stopped, BMP_EXT);*/
 	u->unit_bmp=loadBitmap(getImagePath(name_unit));
-	/*
-	name_of_image_moving=malloc(strlen(PATH)+strlen(name_unit)+strlen(IMG_MOV)+strlen(BMP_EXT)+1);
-	strcpy(name_of_image_moving, PATH);
-	strcat(name_of_image_moving, name_unit);
-	strcat(name_of_image_moving, IMG_MOV);
-	strcat(name_of_image_moving, BMP_EXT);
-	u->unit_standing_bmp=loadBitmap(name_of_image_moving);*/
 
+	u->bullets[0]=(Bullet *)malloc(sizeof(Bullet));
+	u->bullets[0]=NULL;
 
 
 	u->x=x;
@@ -33,11 +20,17 @@ Unit* InitUnit(unsigned int x, unsigned int y, unsigned int hp, unsigned int str
 	u->strength=strength;
 	u->type=type;
 	u->price=price;
-	u->reward_for_killing=reward_for_killing;
+	u->reward_for_killing=price*(4.0/3);
 	u->exp_for_killing=exp_for_killing;
-	u->width=u->unit_bmp->bitmapInfoHeader.width + 10;  //+10, serve para dar margem caso a imagem esteja em movimento
+	u->player=player;
+	u->width=u->unit_bmp->bitmapInfoHeader.width;  //+10, serve para dar margem caso a imagem esteja em movimento
 	u->height=u->unit_bmp->bitmapInfoHeader.height;
 
+
+	if(u->type==1)
+		u->range=Unit_TYPE1_Range;
+
+	u->killed=0;
 	u->UnitS=standing;
 
 	return u;
@@ -47,17 +40,48 @@ Unit* InitUnit(unsigned int x, unsigned int y, unsigned int hp, unsigned int str
 
 void MoveUnit(Unit *u)
 {
-	u->x+=u->vel;
-
+	if(u->player==1)
+		u->x+=u->vel;
+	else
+		u->x-=u->vel;
 }
 
-void DrawUnit(Unit *u)
+void DrawUnit(Unit *u,char* doubleBuffer)
 {
-	drawBitmap(u->unit_bmp, u->x, u->y, ALIGN_LEFT);
-
+	if(u->player==1)
+		drawBitmap(u->unit_bmp, u->x, u->y, ALIGN_LEFT, doubleBuffer);
+	else
+		drawBitmap(u->unit_bmp, u->x, u->y, ALIGN_RIGHT,doubleBuffer);
 }
 
-void unitSetHP(Unit *u, unsigned int new_hp)
+void addBullets(Unit* u, Bullet* b)
+{
+	u->bullets[0]=b;
+}
+
+
+int emptyBullets(Unit* u)
+{
+	if(u->bullets[0]==NULL)
+		return 1;
+	else
+		return 0;
+}
+
+int fullBullets(Unit* u)
+{
+	if(u->bullets[0]!=NULL)
+		return 1;
+	else
+		return 0;
+}
+
+void removeBullet(Unit* u)
+{
+	u->bullets[0]=NULL;
+}
+
+void unitSetHP(Unit *u, int new_hp)
 {
 	u->hp=new_hp;
 }

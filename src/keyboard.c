@@ -31,12 +31,12 @@ int kbd_unsubscribe_int() {
 
 	if (sys_irqdisable(&kbd_hook_id) != OK) {
 		printf("ERROR: disables interrupts failed!\n");
-		return 1;
+		return -1;
 	}
 
 	if (sys_irqrmpolicy(&kbd_hook_id) != OK) {
 		printf("ERROR: unsubscribes a previous subscription failed!\n");
-		return 1;
+		return -1;
 	}
 
 	return 0;
