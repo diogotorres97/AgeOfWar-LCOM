@@ -1,0 +1,149 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/repos/lcom1617-t4g09/!svn/ver/77/lab5
+END
+pixmap.c
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/repos/lcom1617-t4g09/!svn/ver/69/lab5/pixmap.c
+END
+video_gr.c
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/lcom1617-t4g09/!svn/ver/77/lab5/video_gr.c
+END
+read_xpm.c
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/lcom1617-t4g09/!svn/ver/69/lab5/read_xpm.c
+END
+keyboard.c
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/lcom1617-t4g09/!svn/ver/63/lab5/keyboard.c
+END
+pixmap.h
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/repos/lcom1617-t4g09/!svn/ver/69/lab5/pixmap.h
+END
+video_gr.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/lcom1617-t4g09/!svn/ver/76/lab5/video_gr.h
+END
+read_xpm.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/lcom1617-t4g09/!svn/ver/69/lab5/read_xpm.h
+END
+lmlib.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/repos/lcom1617-t4g09/!svn/ver/68/lab5/lmlib.h
+END
+test5.c
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/repos/lcom1617-t4g09/!svn/ver/76/lab5/test5.c
+END
+keyboard.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/lcom1617-t4g09/!svn/ver/63/lab5/keyboard.h
+END
+sprite.c
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/repos/lcom1617-t4g09/!svn/ver/76/lab5/sprite.c
+END
+asprite.c
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/repos/lcom1617-t4g09/!svn/ver/69/lab5/asprite.c
+END
+test5.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/repos/lcom1617-t4g09/!svn/ver/76/lab5/test5.h
+END
+i8042.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/repos/lcom1617-t4g09/!svn/ver/63/lab5/i8042.h
+END
+sprite.h
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/repos/lcom1617-t4g09/!svn/ver/76/lab5/sprite.h
+END
+asprite.h
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/repos/lcom1617-t4g09/!svn/ver/69/lab5/asprite.h
+END
+vbe.c
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/repos/lcom1617-t4g09/!svn/ver/76/lab5/vbe.c
+END
+i8254.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/repos/lcom1617-t4g09/!svn/ver/63/lab5/i8254.h
+END
+timer.c
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/repos/lcom1617-t4g09/!svn/ver/63/lab5/timer.c
+END
+vbe.h
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/repos/lcom1617-t4g09/!svn/ver/76/lab5/vbe.h
+END
+lab5.c
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/repos/lcom1617-t4g09/!svn/ver/68/lab5/lab5.c
+END
+timer.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/repos/lcom1617-t4g09/!svn/ver/63/lab5/timer.h
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/repos/lcom1617-t4g09/!svn/ver/68/lab5/Makefile
+END
+liblm.a
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/repos/lcom1617-t4g09/!svn/ver/62/lab5/liblm.a
+END
