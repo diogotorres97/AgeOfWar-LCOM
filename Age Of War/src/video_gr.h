@@ -31,26 +31,26 @@ int vg_exit(void);
 * @brief gives the video mem
 * @return buffer pointer
 */
-void* getVideoMem();
+void *getVideoMem();
 
 /**
 * @brief gives the screen buffer
 * @return buffer pointer
 */
 
-void* initDoubleBuffer();
+void *initDoubleBuffer();
 
 /**
 * @brief clear double buffer
 * @return
 */
-void clearDoubleBuffer(char* double_buffer);
+void clearDoubleBuffer(char *double_buffer);
 
 /**
 * @brief updates screen with the double buffer
 * @return
 */
-void updateScreenBuffer(char* double_buffer);
+void updateScreenBuffer(char *double_buffer);
 
 /**
 * @brief clears video mem
@@ -67,7 +67,7 @@ void clearVideoMem();
  * @param doubleBuffer
  * @return
  */
-int vg_set_2pixel(unsigned short x, unsigned short y, unsigned long color, char* doubleBuffer);
+int vg_set_2pixel(unsigned short x, unsigned short y, unsigned long color, char *doubleBuffer);
 
 
 /**
@@ -82,7 +82,8 @@ int vg_set_2pixel(unsigned short x, unsigned short y, unsigned long color, char*
  * @param doubleBuffer
  * @return
  */
-int vg_life_retangle(unsigned short x, unsigned short y, float length, float height, float life_max, float life_actual,char* doubleBuffer );
+int vg_life_retangle(unsigned short x, unsigned short y, float length, float height, float life_max, float life_actual,
+                     char *doubleBuffer);
 
 /** @} end of video_gr */
 

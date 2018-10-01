@@ -61,7 +61,6 @@ int timer_get_conf(unsigned long timer, unsigned char *st);
 int timer_display_conf(unsigned char conf);
 
 
-
 /**
 * @brief Tests programming timer in square wave mode
 *

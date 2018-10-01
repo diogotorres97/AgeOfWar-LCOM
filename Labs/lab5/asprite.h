@@ -19,18 +19,18 @@
  *  where each Sprite is manipulated using Sprite functions
  */
 typedef struct {
-	Sprite *sp;		///< pointer to first Sprite, the one with overall properties
-	int aspeed;		///< animation speed 
-	int cur_aspeed; ///< current animation speed 
-	int num_fig; 	///< number of pixmaps 
-	int cur_fig; 	///< current pixmap 
-	char **map;     ///< pointer to array of each AnimSprite pixmaps
+    Sprite *sp;        ///< pointer to first Sprite, the one with overall properties
+    int aspeed;        ///< animation speed
+    int cur_aspeed; ///< current animation speed
+    int num_fig;    ///< number of pixmaps
+    int cur_fig;    ///< current pixmap
+    char **map;     ///< pointer to array of each AnimSprite pixmaps
 } AnimSprite;
 
 /** Create an Animated Sprite from multiple pixmaps
 *   At least one pixmap must be specified.
 */
-AnimSprite * create_asprite(char *base, char *pic1[], ...);
+AnimSprite *create_asprite(char *base, char *pic1[], ...);
 
 /** Animate an Animated Sprite
 */

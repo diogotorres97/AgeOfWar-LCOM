@@ -15,21 +15,21 @@
 */
 int main() {
 
-	srand(time(NULL)); // randomize the seed
-	sef_startup();
-	sys_enable_iop(SELF);
+    srand(time(NULL)); // randomize the seed
+    sef_startup();
+    sys_enable_iop(SELF);
 
-	vg_init(0x117);
-	AgeOfWar* aow = (AgeOfWar*)malloc(sizeof(AgeOfWar));
-	aow = InitAgeOfWar();
+    vg_init(0x117);
+    AgeOfWar *aow = (AgeOfWar *) malloc(sizeof(AgeOfWar));
+    aow = InitAgeOfWar();
 
-	while (aow->currentState != Exit_S) {
-		updateAgeOfWar(aow);
-	}
-	deleteAgeOfWar(aow);
+    while (aow->currentState != Exit_S) {
+        updateAgeOfWar(aow);
+    }
+    deleteAgeOfWar(aow);
 
-	if (vg_exit() != 0)
-		return 1;
+    if (vg_exit() != 0)
+        return 1;
 
-	return 0;
+    return 0;
 }

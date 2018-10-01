@@ -88,11 +88,11 @@
 
 typedef struct {
 
-	Bitmap** sprites;
+    Bitmap **sprites;
 
-	int counter;
+    int counter;
 
-}Animation;
+} Animation;
 
 /**
  * @brief initialize the Animation
@@ -101,7 +101,7 @@ typedef struct {
  * @param state
  * @return
  */
-Animation* InitAnimation(int u1_id, int state);
+Animation *InitAnimation(int u1_id, int state);
 
 
 /**
@@ -115,7 +115,7 @@ Animation* InitAnimation(int u1_id, int state);
  * @param counter
  * @return
  */
-void drawAnimation(Animation* anime, int x, int y, int position, char* doubleBuffer, int counter);
+void drawAnimation(Animation *anime, int x, int y, int position, char *doubleBuffer, int counter);
 
 /**
  * @brief delete all resources allocated by the Animation struct
@@ -123,7 +123,7 @@ void drawAnimation(Animation* anime, int x, int y, int position, char* doubleBuf
  * @param anime pointer to animation struct
  * @return
  */
-void deleteAnimation(Animation* anime);
+void deleteAnimation(Animation *anime);
 
 /**
  * @brief Gets the path of the animation
@@ -132,7 +132,7 @@ void deleteAnimation(Animation* anime);
  * @param count
  * @return
  */
-const char* getImagePathAnimation(char* path, unsigned  int state, unsigned  int count);
+const char *getImagePathAnimation(char *path, unsigned int state, unsigned int count);
 
 /** @} end of Animation */
 

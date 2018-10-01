@@ -22,34 +22,34 @@
 */
 
 typedef enum {
-	MainMenu_S, MultiPlayer1_S, MultiPlayer2_S,
-	Statistics_S, Credits_S, Exit_S,
-	PauseMenu_S, SaveMenu_S,
+    MainMenu_S, MultiPlayer1_S, MultiPlayer2_S,
+    Statistics_S, Credits_S, Exit_S,
+    PauseMenu_S, SaveMenu_S,
 } AgeOfWar_S;
 
 typedef struct {
-	int irq_timer;
-	int irq_mouse;
-	int irq_keyboard;
-	int irq_rtc;
+    int irq_timer;
+    int irq_mouse;
+    int irq_keyboard;
+    int irq_rtc;
 
-	int timer_flag;
-	int keyboard_flag;
-	int mouse_flag;
-	int timer_counter;
+    int timer_flag;
+    int keyboard_flag;
+    int mouse_flag;
+    int timer_counter;
 
-	MainMenu* mm;
-	Game* g;
-	Statistics* stats;
-	Credits* credits;
-	PauseMenu* pm;
-	SaveMenu* sm;
+    MainMenu *mm;
+    Game *g;
+    Statistics *stats;
+    Credits *credits;
+    PauseMenu *pm;
+    SaveMenu *sm;
 
-	AgeOfWar_S currentState;
+    AgeOfWar_S currentState;
 
-	Date* date;
-	Mouse* mouse;
-}AgeOfWar;
+    Date *date;
+    Mouse *mouse;
+} AgeOfWar;
 
 /**
 * @brief initialize the main struct
@@ -57,7 +57,7 @@ typedef struct {
 * @param
 * @return pointer to main struct
 */
-AgeOfWar* InitAgeOfWar();
+AgeOfWar *InitAgeOfWar();
 
 
 /**
@@ -66,7 +66,7 @@ AgeOfWar* InitAgeOfWar();
 * @param pointer to main struct
 * @return
 */
-void updateAgeOfWar(AgeOfWar* aow);
+void updateAgeOfWar(AgeOfWar *aow);
 
 /**
 * @brief delete all resources allocated by the struct
@@ -74,7 +74,7 @@ void updateAgeOfWar(AgeOfWar* aow);
 * @param pointer to main struct
 * @return
 */
-void deleteAgeOfWar(AgeOfWar* aow);
+void deleteAgeOfWar(AgeOfWar *aow);
 
 /**
 * @brief subscribe devices
@@ -82,7 +82,7 @@ void deleteAgeOfWar(AgeOfWar* aow);
 * @param pointer to main struct
 * @return
 */
-int subscribeDevices(AgeOfWar* aow);
+int subscribeDevices(AgeOfWar *aow);
 
 /**
 * @brief unsubscribe devices
@@ -90,7 +90,7 @@ int subscribeDevices(AgeOfWar* aow);
 * @param pointer to main struct
 * @return
 */
-int unsubscribeDevices(AgeOfWar* aow);
+int unsubscribeDevices(AgeOfWar *aow);
 
 /**
 * @brief interruption handler
@@ -98,7 +98,7 @@ int unsubscribeDevices(AgeOfWar* aow);
 * @param pointer to main struct
 * @return
 */
-void interruptHandler(AgeOfWar* aow);
+void interruptHandler(AgeOfWar *aow);
 
 /**
 * @brief reset timer, keyboard and mouse flags
@@ -106,7 +106,7 @@ void interruptHandler(AgeOfWar* aow);
 * @param pointer to main struct
 * @return
 */
-void resetFlags(AgeOfWar* aow);
+void resetFlags(AgeOfWar *aow);
 
 /** @} end of AgeOfWar */
 

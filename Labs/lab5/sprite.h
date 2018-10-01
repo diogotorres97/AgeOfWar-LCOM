@@ -18,10 +18,10 @@
  * other graphical objects or the screen limits. 
  */
 typedef struct {
-  int x,y;             /**< current sprite position */
-  int width, height;   /**< sprite dimensions */
-  float xspeed, yspeed;  /**< current speeds in the x and y direction */
-  char *map;           /**< the sprite pixmap (use read_xpm()) */
+    int x, y;             /**< current sprite position */
+    int width, height;   /**< sprite dimensions */
+    float xspeed, yspeed;  /**< current speeds in the x and y direction */
+    char *map;           /**< the sprite pixmap (use read_xpm()) */
 } Sprite;
 
 /** Creates with random speeds (not zero) and position
@@ -29,7 +29,7 @@ typedef struct {
  * memory whose address is "base";
  * Returns NULL on invalid pixmap.
  */
-Sprite* create_sprite(char*pic[], int x, int y, float xspeed, float yspeed, unsigned int h_res, unsigned int v_res);
+Sprite *create_sprite(char *pic[], int x, int y, float xspeed, float yspeed, unsigned int h_res, unsigned int v_res);
 
 /** Animate the sprite "fig" according to its attributes in memory,
  * whose address is "base".  The animation detects the screen borders
@@ -54,19 +54,19 @@ void destroy_sprite(Sprite *fig);
  * in the new position also oin xor-mode.
  * The first time this function is called it only draws the cursor at the
  * current position.
- */ 
+ */
 
 int animate_sprite(Sprite *fig, double delta);
 
 int move_sprite(Sprite *sp);
 
-static int draw_sprite(Sprite*sp);
+static int draw_sprite(Sprite *sp);
 
 int clear_sprite_area(Sprite *sp);
 
 int delete_sprite(Sprite *sp);
 
-static int check_collision(Sprite*sp, char*base) ;
+static int check_collision(Sprite *sp, char *base);
 
 /** The "fig" sprite is erased from memory whose address is "base"
  * and used resources released.

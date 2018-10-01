@@ -18,130 +18,130 @@
 
 #define MAX_UNITS     10
 
-#define MAX_DEFENSES	4
+#define MAX_DEFENSES    4
 
 #define MAX_BULLETS    1
 
-#define MAX_SLOTS		4
+#define MAX_SLOTS        4
 
 #define NUM_TYPES_UNITS     15
 
-#define INITIAL_MONEY	150
+#define INITIAL_MONEY    150
 
-#define Unit_Range   100 		//units range
-#define DEFENSE_RANGE1 150		//defenses range
-#define DEFENSE_RANGE2 200		//defenses range
-#define DEFENSE_RANGE3 250		//defenses range
-#define DEFENSE_RANGE4 350		//defenses range
-#define DEFENSE_RANGE5 450		//defenses range
+#define Unit_Range   100        //units range
+#define DEFENSE_RANGE1 150        //defenses range
+#define DEFENSE_RANGE2 200        //defenses range
+#define DEFENSE_RANGE3 250        //defenses range
+#define DEFENSE_RANGE4 350        //defenses range
+#define DEFENSE_RANGE5 450        //defenses range
 
-#define InY			690 //Initial y for towers
+#define InY            690 //Initial y for towers
 
-#define InX_P1		95 //Unit initial x for player 1
-#define InX_P2		929 //Unit initial x for player 2
-#define In_Units_Y 		680 //Unit initial y
+#define InX_P1        95 //Unit initial x for player 1
+#define InX_P2        929 //Unit initial x for player 2
+#define In_Units_Y        680 //Unit initial y
 
-#define moneyP1_x 	43
-#define expP1_x 	55
-#define expP1_to_evolve_x	167
-#define moneyP2_x 	753
-#define expP2_x 	765
-#define expP2_to_evolve_x	890
+#define moneyP1_x    43
+#define expP1_x    55
+#define expP1_to_evolve_x    167
+#define moneyP2_x    753
+#define expP2_x    765
+#define expP2_to_evolve_x    890
 
-#define money_y		140
-#define exp_y		158
-#define exp_to_evolve_y		130
+#define money_y        140
+#define exp_y        158
+#define exp_to_evolve_y        130
 
-#define no_P1_time_special_x		225
-#define no_P2_time_special_x		930
+#define no_P1_time_special_x        225
+#define no_P2_time_special_x        930
 
-#define no_time_special_y		147
+#define no_time_special_y        147
 
-#define no_P1_life_tower_x	55
-#define no_P2_life_tower_x	909
+#define no_P1_life_tower_x    55
+#define no_P2_life_tower_x    909
 
-#define no_life_tower_y		275
+#define no_life_tower_y        275
 
-#define InX_Defenses_P1		50
-#define InX_Defenses_P2		974
+#define InX_Defenses_P1        50
+#define InX_Defenses_P2        974
 
-#define INCOME_LEVEL1		5
-#define INCOME_LEVEL2		20
-#define INCOME_LEVEL3		80
-#define INCOME_LEVEL4		270
-#define INCOME_LEVEL5		1080
+#define INCOME_LEVEL1        5
+#define INCOME_LEVEL2        20
+#define INCOME_LEVEL3        80
+#define INCOME_LEVEL4        270
+#define INCOME_LEVEL5        1080
 
-#define EXP_MIN_LEVEL2		4000
-#define EXP_MIN_LEVEL3		14000
-#define EXP_MIN_LEVEL4		45000
-#define EXP_MIN_LEVEL5		200000
+#define EXP_MIN_LEVEL2        4000
+#define EXP_MIN_LEVEL3        14000
+#define EXP_MIN_LEVEL4        45000
+#define EXP_MIN_LEVEL5        200000
 
-#define	MAX_LIFE_TOWER_1	500
-#define	MAX_LIFE_TOWER_2	1000
-#define	MAX_LIFE_TOWER_3	2000
-#define	MAX_LIFE_TOWER_4	3200
-#define	MAX_LIFE_TOWER_5	4700
+#define    MAX_LIFE_TOWER_1    500
+#define    MAX_LIFE_TOWER_2    1000
+#define    MAX_LIFE_TOWER_3    2000
+#define    MAX_LIFE_TOWER_4    3200
+#define    MAX_LIFE_TOWER_5    4700
 
-#define TRANSPARENCY 	0xff00ff
+#define TRANSPARENCY    0xff00ff
 
-#define TIME_SPECIAL_RECHARGE	31
+#define TIME_SPECIAL_RECHARGE    31
 
 
 /* TIMER MACROS */
 
 #define TIMER_FREQ  1193182    /**< @brief clock frequency for timer in PC and AT */
 
-#define TIMER0_IRQ	       	 0    /**< @brief Timer 0 IRQ line */
+#define TIMER0_IRQ             0    /**< @brief Timer 0 IRQ line */
 
-#define TIMER_DEFAULT_FREQ	60
+#define TIMER_DEFAULT_FREQ    60
 
-#define TIMER_HOOK_ID		 1
+#define TIMER_HOOK_ID         1
 
 /* MASKS */
 
-#define BIT_MASK_EIGHT		0xFF // 0000 0000 XXXX XXXX
-#define MASK_ZERO 			0x00
-#define MASK_4LSB_1 		(BIT(3)|BIT(2)|BIT(1)|BIT(0))
-#define MASK_ACESS_TIME		(BIT(5) | BIT(4))
-#define MASK_PROGRAMMED_MODE (BIT(3)|BIT(2)|BIT(1))	 // 0000 1110
+#define BIT_MASK_EIGHT        0xFF // 0000 0000 XXXX XXXX
+#define MASK_ZERO            0x00
+#define MASK_4LSB_1        (BIT(3)|BIT(2)|BIT(1)|BIT(0))
+#define MASK_ACESS_TIME        (BIT(5) | BIT(4))
+#define MASK_PROGRAMMED_MODE (BIT(3)|BIT(2)|BIT(1))     // 0000 1110
 
 /* I/O port addresses */
 
-#define TIMER_0			0x40 /**< @brief Timer 0 count register */
-#define TIMER_1			0x41 /**< @brief Timer 1 count register */
-#define TIMER_2			0x42 /**< @brief Timer 2 count register */
-#define TIMER_CTRL		0x43 /**< @brief Control register */
+#define TIMER_0            0x40 /**< @brief Timer 0 count register */
+#define TIMER_1            0x41 /**< @brief Timer 1 count register */
+#define TIMER_2            0x42 /**< @brief Timer 2 count register */
+#define TIMER_CTRL        0x43 /**< @brief Control register */
 
-#define SPEAKER_CTRL		0x61 /**< @brief Register for speaker control  */
+#define SPEAKER_CTRL        0x61 /**< @brief Register for speaker control  */
 
 /* Timer control */
 
 /* Timer selection: bits 7 and 6 */
 
-#define TIMER_SEL0		0x00     /**< @brief Control Word for Timer 0 */
-#define TIMER_SEL1		BIT(6)   /**< @brief Control Word for Timer 1 */
-#define TIMER_SEL2		BIT(7)   /**< @brief Control Word for Timer 2 */
-#define TIMER_RB_CMD		(BIT(7)|BIT(6))  /**< @brief Read Back Command */
+#define TIMER_SEL0        0x00     /**< @brief Control Word for Timer 0 */
+#define TIMER_SEL1        BIT(6)   /**< @brief Control Word for Timer 1 */
+#define TIMER_SEL2        BIT(7)   /**< @brief Control Word for Timer 2 */
+#define TIMER_RB_CMD        (BIT(7)|BIT(6))  /**< @brief Read Back Command */
 
 /* Register selection: bits 5 and 4 */
 
-#define TIMER_LSB		BIT(4)  /**< @brief Initialize Counter LSB only */
-#define TIMER_MSB		BIT(5)  /**< @brief Initialize Counter MSB only */
-#define TIMER_LSB_MSB		(TIMER_LSB | TIMER_MSB) /**< @brief Initialize LSB first and MSB afterwards */
+#define TIMER_LSB        BIT(4)  /**< @brief Initialize Counter LSB only */
+#define TIMER_MSB        BIT(5)  /**< @brief Initialize Counter MSB only */
+#define TIMER_LSB_MSB        (TIMER_LSB | TIMER_MSB) /**< @brief Initialize LSB first and MSB afterwards */
 
 /* Operating mode: bits 3, 2 and 1 */
 
-#define TIMER_INT_COUNT		0x00			/**< @brief MODE 0: INTERRUPT ON TERMINAL COUNT */
-#define TIMER_HW_RETR		BIT(1)	 		/**< @brief MODE 1: HARDWARE RETRIGGERABLE ONE-SHOT */
-#define TIMER_RATE_GEN		BIT(2)          /**< @brief Mode 2: rate generator */
-#define TIMER_SQR_WAVE		(BIT(2)|BIT(1)) /**< @brief Mode 3: square wave generator */
-#define TIMER_SW_TRIG 		BIT(3)	 		/**< @brief MODE 4: SOFTWARE TRIGGERED STROBE */
-#define TIMER_HW_TRIG 		(BIT(3)|BIT(1))	/**< @brief MODE 5: HARDWARE TRIGGERED STROBE (RETRIGGERABLE) */
+#define TIMER_INT_COUNT        0x00            /**< @brief MODE 0: INTERRUPT ON TERMINAL COUNT */
+#define TIMER_HW_RETR        BIT(1)            /**< @brief MODE 1: HARDWARE RETRIGGERABLE ONE-SHOT */
+#define TIMER_RATE_GEN        BIT(2)          /**< @brief Mode 2: rate generator */
+#define TIMER_SQR_WAVE        (BIT(2)|BIT(1)) /**< @brief Mode 3: square wave generator */
+#define TIMER_SW_TRIG        BIT(3)            /**< @brief MODE 4: SOFTWARE TRIGGERED STROBE */
+#define TIMER_HW_TRIG        (BIT(3)|BIT(1))    /**< @brief MODE 5: HARDWARE TRIGGERED STROBE (RETRIGGERABLE) */
 
 /* Counting mode: bit 0 */
 
-#define TIMER_BCD			0x01   /**< @brief Count in BCD */
-#define TIMER_BIN			0x00   /**< @brief Count in binary */
+#define TIMER_BCD            0x01   /**< @brief Count in BCD */
+#define TIMER_BIN            0x00   /**< @brief Count in binary */
 
 /* READ-BACK COMMAND FORMAT */
 
@@ -231,13 +231,13 @@
 
 #define VRAM_PHYS_ADDR        0xE0000000
 
-#define H_RES					1024
+#define H_RES                    1024
 
-#define V_RES					768
+#define V_RES                    768
 
 #define BITS_PER_PIXEL          16
 
-#define VRAM_SIZE 			H_RES*V_RES*BITS_PER_PIXEL/8
+#define VRAM_SIZE            H_RES*V_RES*BITS_PER_PIXEL/8
 
 /*Mouse constants */
 
@@ -246,13 +246,13 @@
 
 #define MOUSE_HOOK_ID 5
 
-#define EDR	0xF4 //enable data report
+#define EDR    0xF4 //enable data report
 
-#define DDR	0xF5 //disable data report
+#define DDR    0xF5 //disable data report
 
-#define SSME	0xEA //stream enable
+#define SSME    0xEA //stream enable
 
-#define SSMD	0xFA //stream disable
+#define SSMD    0xFA //stream disable
 
 #define STATUS_REQUEST 0xE9
 

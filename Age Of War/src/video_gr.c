@@ -39,282 +39,279 @@ static unsigned bits_per_pixel; /* Number of VRAM bits per pixel */
 
 void *vg_init(unsigned short mode) {
 
-	//VBE graphics mode 105h, 1024x768@256,        linear mode
+    //VBE graphics mode 105h, 1024x768@256,        linear mode
 
-	vbe_mode_info_t vmi_p;
+    vbe_mode_info_t vmi_p;
 
-	struct reg86u r;
+    struct reg86u r;
 
-	int r1;
+    int r1;
 
-	struct mem_range mr;
+    struct mem_range mr;
 
-	r.u.w.ax = VBE_VBE_MODE; // VBE call, function 02 -- set VBE mode
+    r.u.w.ax = VBE_VBE_MODE; // VBE call, function 02 -- set VBE mode
 
-	r.u.w.bx = 1 << 14 | mode; // set bit 14: linear framebuffer
+    r.u.w.bx = 1 << 14 | mode; // set bit 14: linear framebuffer
 
-	r.u.b.intno = VBE_INTERRUPT;
+    r.u.b.intno = VBE_INTERRUPT;
 
-	if (sys_int86(&r) != OK) {
+    if (sys_int86(&r) != OK) {
 
-		printf("set_vbe_mode: sys_int86() failed \n");
+        printf("set_vbe_mode: sys_int86() failed \n");
 
-		return NULL;
+        return NULL;
 
-	}
+    }
 
-	if (vbe_get_mode_info(mode, &vmi_p) != 0)
+    if (vbe_get_mode_info(mode, &vmi_p) != 0)
 
-		return NULL;
+        return NULL;
 
-	unsigned int vram_base = vmi_p.PhysBasePtr;
+    unsigned int vram_base = vmi_p.PhysBasePtr;
 
-	unsigned int vram_size;
+    unsigned int vram_size;
 
-	h_res = vmi_p.XResolution;
+    h_res = vmi_p.XResolution;
 
-	v_res = vmi_p.YResolution;
+    v_res = vmi_p.YResolution;
 
-	bits_per_pixel = vmi_p.BitsPerPixel;
+    bits_per_pixel = vmi_p.BitsPerPixel;
 
-	/*Allow memory mapping*/
+    /*Allow memory mapping*/
 
-	mr.mr_base = (phys_bytes)vram_base;
+    mr.mr_base = (phys_bytes) vram_base;
 
-	vram_size = h_res*v_res*(bits_per_pixel / 8);
+    vram_size = h_res * v_res * (bits_per_pixel / 8);
 
-	//screen_buffer=malloc(h_res*v_res*(bits_per_pixel/8));
+    //screen_buffer=malloc(h_res*v_res*(bits_per_pixel/8));
 
-	mr.mr_limit = mr.mr_base + vram_size;
+    mr.mr_limit = mr.mr_base + vram_size;
 
-	if (OK != (r1 = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
+    if (OK != (r1 = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)))
 
-		panic("sys_privctl (ADD_MEM) failed: %d\n", r1);
+        panic("sys_privctl (ADD_MEM) failed: %d\n", r1);
 
-	/*Map memory*/
+    /*Map memory*/
 
-	video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
-
-
-	if (video_mem == MAP_FAILED)
-
-		panic("couldn't map video memory");
+    video_mem = vm_map_phys(SELF, (void *) mr.mr_base, vram_size);
 
 
-	return (void*)video_mem;
+    if (video_mem == MAP_FAILED)
+
+        panic("couldn't map video memory");
+
+
+    return (void *) video_mem;
 
 }
 
 int vg_set_pixel(unsigned short x, unsigned short y, unsigned long color) {
 
-	unsigned char *adress_temp;
+    unsigned char *adress_temp;
 
-	adress_temp = video_mem;
+    adress_temp = video_mem;
 
-	if ((x < h_res) && (y < v_res)) {
+    if ((x < h_res) && (y < v_res)) {
 
-		if (color != VIDEO_256_TRANSPARENT) {
+        if (color != VIDEO_256_TRANSPARENT) {
 
-			adress_temp += (x + y*h_res)*(bits_per_pixel / 8);
+            adress_temp += (x + y * h_res) * (bits_per_pixel / 8);
 
-			*adress_temp = color;
+            *adress_temp = color;
 
-		}
+        }
 
-		return 0;
+        return 0;
 
-	}
+    }
 
-	return 1;
+    return 1;
 
 }
 
 int vg_fill_square(unsigned short x, unsigned short y, unsigned short size, unsigned long color) {
 
-	unsigned short xi;
+    unsigned short xi;
 
-	unsigned short yi;
+    unsigned short yi;
 
-	for (yi = 0; yi < size; yi++) {
+    for (yi = 0; yi < size; yi++) {
 
-		for (xi = 0; xi < size; xi++) {
+        for (xi = 0; xi < size; xi++) {
 
-			vg_set_pixel(x + xi, y + yi, color);
+            vg_set_pixel(x + xi, y + yi, color);
 
-		}
+        }
 
-	}
-
-}
-
-int vg_set_2pixel(unsigned short x, unsigned short y, unsigned long color, char* doubleBuffer) {
-
-	unsigned char *adress_temp;
-
-	adress_temp = doubleBuffer;
-
-	unsigned long lsb = color & 0xFF;
-	unsigned long msb = (color & 0xFF00) >> 8;
-
-	if ((x < h_res) && (y < v_res)) {
-		adress_temp += (x + y*h_res)*(bits_per_pixel / 8);
-		*adress_temp = lsb;
-		adress_temp++;
-		*adress_temp = msb;
-		return 0;
-
-	}
-
-	return 1;
+    }
 
 }
 
-int vg_life_retangle(unsigned short x, unsigned short y, float length, float height, float life_max, float life_actual, char* doubleBuffer ) {
+int vg_set_2pixel(unsigned short x, unsigned short y, unsigned long color, char *doubleBuffer) {
+
+    unsigned char *adress_temp;
+
+    adress_temp = doubleBuffer;
+
+    unsigned long lsb = color & 0xFF;
+    unsigned long msb = (color & 0xFF00) >> 8;
+
+    if ((x < h_res) && (y < v_res)) {
+        adress_temp += (x + y * h_res) * (bits_per_pixel / 8);
+        *adress_temp = lsb;
+        adress_temp++;
+        *adress_temp = msb;
+        return 0;
+
+    }
+
+    return 1;
+
+}
+
+int vg_life_retangle(unsigned short x, unsigned short y, float length, float height, float life_max, float life_actual,
+                     char *doubleBuffer) {
 
 
-	unsigned short xi;
+    unsigned short xi;
 
-	unsigned short yi;
+    unsigned short yi;
 
-	float temp = height;
+    float temp = height;
 
-	//Fill Retangle with certain life
-	if(life_actual<0){
-		temp=0;
-	}
-	else
-		temp = (height) * (life_actual/life_max);
+    //Fill Retangle with certain life
+    if (life_actual < 0) {
+        temp = 0;
+    } else
+        temp = (height) * (life_actual / life_max);
 
-	for (yi = 0; yi < temp; yi++) {
+    for (yi = 0; yi < temp; yi++) {
 
-		for (xi = 0; xi < length; xi++) {
-			vg_set_2pixel(x + xi, y + height - yi, 0xF800 ,doubleBuffer);
-		}
+        for (xi = 0; xi < length; xi++) {
+            vg_set_2pixel(x + xi, y + height - yi, 0xF800, doubleBuffer);
+        }
 
-	}
+    }
 
-	//Fill Borders of Rectangle
-	for (yi=0; yi < height; yi++){
-		vg_set_2pixel(x, y+height-yi, 0x0000, doubleBuffer);
-		vg_set_2pixel(x + length, y+height-yi, 0x0000, doubleBuffer);
+    //Fill Borders of Rectangle
+    for (yi = 0; yi < height; yi++) {
+        vg_set_2pixel(x, y + height - yi, 0x0000, doubleBuffer);
+        vg_set_2pixel(x + length, y + height - yi, 0x0000, doubleBuffer);
 
-	}
+    }
 
-	for (xi=0; xi< length; xi++){
-		vg_set_2pixel(x+length-xi, y, 0x0000, doubleBuffer);
-		vg_set_2pixel(x+length-xi, y + height, 0x0000, doubleBuffer);
-	}
+    for (xi = 0; xi < length; xi++) {
+        vg_set_2pixel(x + length - xi, y, 0x0000, doubleBuffer);
+        vg_set_2pixel(x + length - xi, y + height, 0x0000, doubleBuffer);
+    }
 
 }
 
 int vg_set_line(unsigned short xi, unsigned short yi,
 
-		unsigned short xf, unsigned short yf, unsigned long color) {
+                unsigned short xf, unsigned short yf, unsigned long color) {
 
-	float dx = xf - xi;
+    float dx = xf - xi;
 
-	float dy = yf - yi;
+    float dy = yf - yi;
 
-	float xt;
+    float xt;
 
-	float yt;
+    float yt;
 
-	for (xt = xi; xt < xf; xt++) {
+    for (xt = xi; xt < xf; xt++) {
 
-		yt = (dy / dx)*(xt - xi) + yi;
+        yt = (dy / dx) * (xt - xi) + yi;
 
-		vg_set_pixel(xt, yt, color);
+        vg_set_pixel(xt, yt, color);
 
-	}
+    }
 
 }
 
 int vg_exit() {
 
-	struct reg86u reg86;
+    struct reg86u reg86;
 
-	reg86.u.b.intno = VBE_INTERRUPT; /* BIOS video services */
+    reg86.u.b.intno = VBE_INTERRUPT; /* BIOS video services */
 
-	reg86.u.b.ah = VBE_RETURN_VBE_CONTROLLER_INFO;    /* Set Video Mode function */
+    reg86.u.b.ah = VBE_RETURN_VBE_CONTROLLER_INFO;    /* Set Video Mode function */
 
-	reg86.u.b.al = VBE_RETURN_CURRENT_VBE_MODE;    /* 80x25 text mode*/
+    reg86.u.b.al = VBE_RETURN_CURRENT_VBE_MODE;    /* 80x25 text mode*/
 
-	if (sys_int86(&reg86) != OK) {
+    if (sys_int86(&reg86) != OK) {
 
-		printf("\tvg_exit(): sys_int86() failed \n");
+        printf("\tvg_exit(): sys_int86() failed \n");
 
-		return 1;
+        return 1;
 
-	}
+    } else {
 
-	else
+        return 0;
 
-	{
-
-		return 0;
-
-	}
+    }
 
 }
 
 int vg_set_xpm(unsigned short xi, unsigned short yi, char *pixmap, unsigned short width, unsigned short height) {
 
-	int i, j;
+    int i, j;
 
-	// copy it to graphics memory
+    // copy it to graphics memory
 
-	for (i = 0; i < height; i++) {
+    for (i = 0; i < height; i++) {
 
-		for (j = 0; j < width; j++) {
+        for (j = 0; j < width; j++) {
 
-			unsigned long color = *(pixmap + (j + i * width) * bits_per_pixel / 8);
+            unsigned long color = *(pixmap + (j + i * width) * bits_per_pixel / 8);
 
-			vg_set_pixel(xi + j, yi + i, color);
+            vg_set_pixel(xi + j, yi + i, color);
 
-		}
+        }
 
-	}
+    }
 
-	return 0;
-
-}
-
-int vg_set_color(unsigned short xi, unsigned short yi, unsigned short width, unsigned short height, unsigned long color) {
-
-	int i, j;
-
-	for (i = xi; i < xi + width; i++) {
-
-		for (j = yi; j < yi + height; j++) {
-
-			vg_set_pixel(i, j, color);
-
-		}
-
-	}
-
-	return 0;
+    return 0;
 
 }
 
-void* initDoubleBuffer() {
-	char* double_buffer = (char*)malloc(h_res * v_res*bits_per_pixel / 8);
-	return double_buffer;
+int
+vg_set_color(unsigned short xi, unsigned short yi, unsigned short width, unsigned short height, unsigned long color) {
+
+    int i, j;
+
+    for (i = xi; i < xi + width; i++) {
+
+        for (j = yi; j < yi + height; j++) {
+
+            vg_set_pixel(i, j, color);
+
+        }
+
+    }
+
+    return 0;
+
 }
 
-void* getVideoMem() {
-	return video_mem;
+void *initDoubleBuffer() {
+    char *double_buffer = (char *) malloc(h_res * v_res * bits_per_pixel / 8);
+    return double_buffer;
+}
+
+void *getVideoMem() {
+    return video_mem;
 }
 
 
-void updateScreenBuffer(char* double_buffer) {
-	memcpy(video_mem, double_buffer, h_res * v_res*bits_per_pixel / 8);
+void updateScreenBuffer(char *double_buffer) {
+    memcpy(video_mem, double_buffer, h_res * v_res * bits_per_pixel / 8);
 }
 
-void clearDoubleBuffer(char* double_buffer) {
-	memset(double_buffer, 0, h_res * v_res * bits_per_pixel / 8);
+void clearDoubleBuffer(char *double_buffer) {
+    memset(double_buffer, 0, h_res * v_res * bits_per_pixel / 8);
 }
 
 void clearVideoMem() {
-	memset(video_mem, 0, h_res * v_res * bits_per_pixel / 8);
+    memset(video_mem, 0, h_res * v_res * bits_per_pixel / 8);
 }

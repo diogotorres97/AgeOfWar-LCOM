@@ -21,26 +21,26 @@
  */
 
 
-typedef enum{
-	attack,
-	charging,
-	available,
+typedef enum {
+    attack,
+    charging,
+    available,
 
-}SpecialState;
+} SpecialState;
 
-typedef struct Special{
+typedef struct Special {
 
-	int strength;
-	int x;
-	int y;
-	int player;
-	char* special_name;
+    int strength;
+    int x;
+    int y;
+    int player;
+    char *special_name;
 
-	SpecialState SpecialS;
+    SpecialState SpecialS;
 
-	Bitmap* special_bmp;
+    Bitmap *special_bmp;
 
-}Special;
+} Special;
 
 /**
  * @brief initiates special object
@@ -52,7 +52,7 @@ typedef struct Special{
 
  * @return pointer to the unit struct
  */
-Special* InitSpecial( int x, int strength, char* name_tower,  int player);
+Special *InitSpecial(int x, int strength, char *name_tower, int player);
 
 /**
  * @brief draws the special to the second buffer
@@ -61,7 +61,7 @@ Special* InitSpecial( int x, int strength, char* name_tower,  int player);
  * @param pointer to doubleBuffer
  * @return
  */
-void DrawSpecial(Special *s, char* doubleBuffer);
+void DrawSpecial(Special *s, char *doubleBuffer);
 
 
 /**
@@ -71,7 +71,7 @@ void DrawSpecial(Special *s, char* doubleBuffer);
  * @param newStrength - new strength
  * @return
  */
-void specialSetStrength(Special* s, int newStrength);
+void specialSetStrength(Special *s, int newStrength);
 
 /**
  * @brief delete special

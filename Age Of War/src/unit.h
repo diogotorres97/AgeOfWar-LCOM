@@ -24,56 +24,56 @@
 */
 
 
-#define Unit_Speed		1  //Unit speed
+#define Unit_Speed        1  //Unit speed
 
 
 typedef enum {
-	attacking,
-	shooting,
-	moving,
-	standing,
-	dying,
-}UnitActualState;
+    attacking,
+    shooting,
+    moving,
+    standing,
+    dying,
+} UnitActualState;
 
 typedef struct Unit {
 
-	int hp;
-	int strength;
-	int type;
-	int price;
-	int reward_for_killing;
-	int exp_for_killing;
+    int hp;
+    int strength;
+    int type;
+    int price;
+    int reward_for_killing;
+    int exp_for_killing;
 
-	char* name_unit;
+    char *name_unit;
 
-	int x;
-	int y;
-	int vel;
+    int x;
+    int y;
+    int vel;
 
-	int id;
+    int id;
 
-	int width;
-	int height;
+    int width;
+    int height;
 
-	int in_battle;
+    int in_battle;
 
-	int player;
-	int range;
+    int player;
+    int range;
 
-	Bullet* bullets[MAX_BULLETS];
+    Bullet *bullets[MAX_BULLETS];
 
-	Animation* UnitAnime_A;
-	Animation* UnitAnime_M;
-	Animation* UnitAnime_S;
-	Animation* UnitAnime_D;
+    Animation *UnitAnime_A;
+    Animation *UnitAnime_M;
+    Animation *UnitAnime_S;
+    Animation *UnitAnime_D;
 
-	int killed;
+    int killed;
 
-	UnitActualState UnitS;
+    UnitActualState UnitS;
 
-	Bitmap* unit_bmp;
+    Bitmap *unit_bmp;
 
-}Unit;
+} Unit;
 
 /**
 * @brief initiates unit object
@@ -89,9 +89,8 @@ typedef struct Unit {
 * @param id of the unit
 * @return pointer to the unit struct
 */
-Unit* InitUnit(int x, int hp, int strength, int type, char* name_unit, int price,
-	int exp_for_killing, int player, int id);
-
+Unit *InitUnit(int x, int hp, int strength, int type, char *name_unit, int price,
+               int exp_for_killing, int player, int id);
 
 
 /**
@@ -110,7 +109,7 @@ void MoveUnit(Unit *u);
 * @param counter of the timer
 * @return
 */
-void DrawUnit(Unit *u, char* doubleBuffer, int counter);
+void DrawUnit(Unit *u, char *doubleBuffer, int counter);
 
 
 /**
@@ -120,7 +119,7 @@ void DrawUnit(Unit *u, char* doubleBuffer, int counter);
 * @param pointer to the bullet object
 * @return
 */
-void addBulletsUnits(Unit* u, Bullet* b);
+void addBulletsUnits(Unit *u, Bullet *b);
 
 
 
@@ -139,7 +138,7 @@ void addBulletsUnits(Unit* u, Bullet* b);
 * @param pointer to the unit object
 * @return 1 -> true, 0->false
 */
-int emptyBulletsUnits(Unit* u);
+int emptyBulletsUnits(Unit *u);
 
 /**
 * @brief verifies if bullets are full
@@ -147,7 +146,7 @@ int emptyBulletsUnits(Unit* u);
 * @param pointer to the unit object
 * @return 1 -> true, 0->false
 */
-int fullBulletsUnits(Unit* u);
+int fullBulletsUnits(Unit *u);
 
 /**
 * @brief delete a bullet from the array of bullets
@@ -155,7 +154,7 @@ int fullBulletsUnits(Unit* u);
 * @param pointer to the unit object
 * @return
 */
-void removeBulletUnit(Unit* u);
+void removeBulletUnit(Unit *u);
 
 /**
 * @brief sets HP to the arg

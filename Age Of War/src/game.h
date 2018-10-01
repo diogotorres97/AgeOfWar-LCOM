@@ -32,34 +32,34 @@
 */
 
 typedef struct {
-	Player* p1;
-	Player* p2;
-	Terrain* GameTerrain;
-	Animation* GameAnime;
-	unsigned int mode;
+    Player *p1;
+    Player *p2;
+    Terrain *GameTerrain;
+    Animation *GameAnime;
+    unsigned int mode;
 
-	int created_unit;
-	int timer_cntr;
-	int special_cntr1;
-	int special_cntr2;
+    int created_unit;
+    int timer_cntr;
+    int special_cntr1;
+    int special_cntr2;
 
-	int used_special1;
-	int used_special2;
+    int used_special1;
+    int used_special2;
 
-	int time_left_special1;
-	int time_left_special2;
+    int time_left_special1;
+    int time_left_special2;
 
-	int show_special1;
-	int show_special2;
+    int show_special1;
+    int show_special2;
 
-	char* gameBuffer;
-	int timer_anime;
+    char *gameBuffer;
+    int timer_anime;
 
-	int current_back;
+    int current_back;
 
-	Bitmap* menu_l_bmp; //menu for p1
-	Bitmap* menu_r_bmp; //menu for p2
-	Bitmap* special_charge_bmp; //special charging image
+    Bitmap *menu_l_bmp; //menu for p1
+    Bitmap *menu_r_bmp; //menu for p2
+    Bitmap *special_charge_bmp; //special charging image
 
 } Game;
 
@@ -70,7 +70,7 @@ typedef struct {
 * @param mode - if it is multiplayer in the same PC (0)
 * @return pointer to the game struct
 */
-Game* InitGame(unsigned int mode);
+Game *InitGame(unsigned int mode);
 
 /**
 * @brief updates players objects
@@ -78,7 +78,7 @@ Game* InitGame(unsigned int mode);
 * @param pointer to the game struct
 * @return
 */
-void updateGame(Game* g);
+void updateGame(Game *g);
 
 /**
 * @brief draw of players objects to the buffer, as well as the background
@@ -86,7 +86,7 @@ void updateGame(Game* g);
 * @param pointer to the game struct
 * @return
 */
-void drawGame(Game* g);
+void drawGame(Game *g);
 
 /**
 * @brief erases the game
@@ -94,7 +94,7 @@ void drawGame(Game* g);
 * @param pointer to the game struct
 * @return
 */
-void deleteGame(Game* g);
+void deleteGame(Game *g);
 
 /**
 * @brief check if there is collision between 2 units
@@ -103,7 +103,7 @@ void deleteGame(Game* g);
 * @param u2 - pointer to unit from player 2
 * @return 1 if true, 0 if false
 */
-int checkUnitCollision(Unit* u1, Unit* u2);
+int checkUnitCollision(Unit *u1, Unit *u2);
 
 /**
 * @brief check if the enemy unit is inside of the first players unit range
@@ -112,7 +112,7 @@ int checkUnitCollision(Unit* u1, Unit* u2);
 * @param u2 - u1 - pointer to the other unit
 * @return 1 if true, 0 if false
 */
-int checkUnitEnemyUnitRange(Unit* u1, Unit* u2);
+int checkUnitEnemyUnitRange(Unit *u1, Unit *u2);
 
 /**
 * @brief simulates the battle between 2 units
@@ -121,7 +121,7 @@ int checkUnitEnemyUnitRange(Unit* u1, Unit* u2);
 * @param u2 - pointer to unit from player 2
 * @return
 */
-void battleBetweenUnits(Unit* u1, Unit* u2);
+void battleBetweenUnits(Unit *u1, Unit *u2);
 
 /**
 * @brief check if there is collision between a bullet and an unit
@@ -130,7 +130,7 @@ void battleBetweenUnits(Unit* u1, Unit* u2);
 * @param u - pointer to unit
 * @return 1 if true, 0 if false
 */
-int checkBulletsUnitsCollision(Bullet* b, Unit* u);
+int checkBulletsUnitsCollision(Bullet *b, Unit *u);
 
 /**
 * @brief deals with all the hardware interrupts
@@ -140,7 +140,7 @@ int checkBulletsUnitsCollision(Bullet* b, Unit* u);
 * @return
 */
 
-void kbdInterruptHandler(Game* g, unsigned long key);
+void kbdInterruptHandler(Game *g, unsigned long key);
 
 /** @} end of Game */
 

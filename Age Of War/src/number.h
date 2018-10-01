@@ -22,49 +22,49 @@
 typedef struct Number {
 
 
-	int x;
-	int y;
-	int player;
+    int x;
+    int y;
+    int player;
 
-	int width;
-	int height;
+    int width;
+    int height;
 
-	int no;
+    int no;
 
-	Bitmap* n0_bmp;
-	Bitmap* n1_bmp;
-	Bitmap* n2_bmp;
-	Bitmap* n3_bmp;
-	Bitmap* n4_bmp;
-	Bitmap* n5_bmp;
-	Bitmap* n6_bmp;
-	Bitmap* n7_bmp;
-	Bitmap* n8_bmp;
-	Bitmap* n9_bmp;
+    Bitmap *n0_bmp;
+    Bitmap *n1_bmp;
+    Bitmap *n2_bmp;
+    Bitmap *n3_bmp;
+    Bitmap *n4_bmp;
+    Bitmap *n5_bmp;
+    Bitmap *n6_bmp;
+    Bitmap *n7_bmp;
+    Bitmap *n8_bmp;
+    Bitmap *n9_bmp;
 
-	Bitmap* nr0_bmp;
-	Bitmap* nr1_bmp;
-	Bitmap* nr2_bmp;
-	Bitmap* nr3_bmp;
-	Bitmap* nr4_bmp;
-	Bitmap* nr5_bmp;
-	Bitmap* nr6_bmp;
-	Bitmap* nr7_bmp;
-	Bitmap* nr8_bmp;
-	Bitmap* nr9_bmp;
+    Bitmap *nr0_bmp;
+    Bitmap *nr1_bmp;
+    Bitmap *nr2_bmp;
+    Bitmap *nr3_bmp;
+    Bitmap *nr4_bmp;
+    Bitmap *nr5_bmp;
+    Bitmap *nr6_bmp;
+    Bitmap *nr7_bmp;
+    Bitmap *nr8_bmp;
+    Bitmap *nr9_bmp;
 
-	Bitmap* ny0_bmp;
-	Bitmap* ny1_bmp;
-	Bitmap* ny2_bmp;
-	Bitmap* ny3_bmp;
-	Bitmap* ny4_bmp;
-	Bitmap* ny5_bmp;
-	Bitmap* ny6_bmp;
-	Bitmap* ny7_bmp;
-	Bitmap* ny8_bmp;
-	Bitmap* ny9_bmp;
+    Bitmap *ny0_bmp;
+    Bitmap *ny1_bmp;
+    Bitmap *ny2_bmp;
+    Bitmap *ny3_bmp;
+    Bitmap *ny4_bmp;
+    Bitmap *ny5_bmp;
+    Bitmap *ny6_bmp;
+    Bitmap *ny7_bmp;
+    Bitmap *ny8_bmp;
+    Bitmap *ny9_bmp;
 
-}Number;
+} Number;
 
 /**
  * @brief initiates number object
@@ -75,9 +75,9 @@ typedef struct Number {
  * @param no - number to convert to image
  * @return pointer to the unit struct
  */
-Number* InitNumber(int x, int y, int player, int no);
+Number *InitNumber(int x, int y, int player, int no);
 
-void setNumber(Number* n, int newNum);
+void setNumber(Number *n, int newNum);
 
 /**
  * @brief draw number to the second buffer
@@ -87,7 +87,7 @@ void setNumber(Number* n, int newNum);
  * @param color of the number
  * @return
  */
-void DrawNumber(Number *n, char* doubleBuffer, int color);
+void DrawNumber(Number *n, char *doubleBuffer, int color);
 
 /**
  * @brief draw number to the second buffer
@@ -97,7 +97,7 @@ void DrawNumber(Number *n, char* doubleBuffer, int color);
  * @param color of the digit
  * @return
  */
-void DrawDigit(Number *n, int digit, char* doubleBuffer, int color);
+void DrawDigit(Number *n, int digit, char *doubleBuffer, int color);
 
 /**
  * @brief gives number of digits of a number

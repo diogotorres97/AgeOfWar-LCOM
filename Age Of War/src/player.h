@@ -28,31 +28,31 @@
 
 typedef struct {
 
-	Unit* units[MAX_UNITS];
+    Unit *units[MAX_UNITS];
 
-	Defense* defenses[MAX_DEFENSES];
+    Defense *defenses[MAX_DEFENSES];
 
-	Slot* slots_defenses[MAX_SLOTS];
+    Slot *slots_defenses[MAX_SLOTS];
 
-	int slots_available;
+    int slots_available;
 
-	Number* no_money;
-	Number* no_exp;
-	Number* no_exp_to_evolve;
-	Number*	no_time_special;
-	Number* no_tower_life;
+    Number *no_money;
+    Number *no_exp;
+    Number *no_exp_to_evolve;
+    Number *no_time_special;
+    Number *no_tower_life;
 
-	unsigned int level;
+    unsigned int level;
 
-	Tower* t;
-	Special* s;
+    Tower *t;
+    Special *s;
 
 
-	unsigned int side; //0-> left, 1->right
-	int income_per_level;
-	int money;
-	int experience;
-	int defense_current_range;
+    unsigned int side; //0-> left, 1->right
+    int income_per_level;
+    int money;
+    int experience;
+    int defense_current_range;
 
 
 } Player;
@@ -64,7 +64,7 @@ typedef struct {
 * @param side - side to which player's units will be headed
 * @return pointer to the unit struct
 */
-Player* InitPlayer(unsigned int side);
+Player *InitPlayer(unsigned int side);
 
 /**
 * @brief sets this player money to newMoney
@@ -73,7 +73,7 @@ Player* InitPlayer(unsigned int side);
 * @param newMoney - money to set
 * @return
 */
-void setMoney(Player* p, int newMoney);
+void setMoney(Player *p, int newMoney);
 
 /**
 * @brief sets this player exp to newExp
@@ -82,7 +82,7 @@ void setMoney(Player* p, int newMoney);
 * @param newExp - exp to set
 * @return
 */
-void setExperience(Player* p, int newExp);
+void setExperience(Player *p, int newExp);
 
 /**
 * @brief sets this defense range to newRange
@@ -99,7 +99,7 @@ void setDefenseRange(Player *p, int newRange);
 * @param pointer to the player object
 * @return
 */
-void deletePlayer(Player* p);
+void deletePlayer(Player *p);
 
 /**
 * @brief sets the player current level
@@ -108,7 +108,7 @@ void deletePlayer(Player* p);
 * @param level to set
 * @return
 */
-void setLevel(Player* p, unsigned int level);
+void setLevel(Player *p, unsigned int level);
 
 /**
 * @brief sets the player current income
@@ -117,7 +117,7 @@ void setLevel(Player* p, unsigned int level);
 * income to set
 * @return
 */
-void setIncome(Player* p, int income);
+void setIncome(Player *p, int income);
 
 /**
 * @brief adds an unit to the array of units
@@ -126,7 +126,7 @@ void setIncome(Player* p, int income);
 * @param pointer to the unit object
 * @return
 */
-void addUnits(Player* p, Unit* u);
+void addUnits(Player *p, Unit *u);
 
 /**
 * @brief adds a defense to the array of defenses
@@ -135,7 +135,7 @@ void addUnits(Player* p, Unit* u);
 * @param pointer to the defense object
 * @return
 */
-void addDefenses(Player* p, Defense* d);
+void addDefenses(Player *p, Defense *d);
 
 /**
 * @brief adds a slot to the array of slots
@@ -144,7 +144,7 @@ void addDefenses(Player* p, Defense* d);
 * @param pointer to the slot object
 * @return
 */
-void addSlots(Player* p, Slot* s);
+void addSlots(Player *p, Slot *s);
 
 /**
 * @brief verifies if units is empty
@@ -152,7 +152,7 @@ void addSlots(Player* p, Slot* s);
 * @param pointer to the player object
 * @return 1 -> true, 0->false
 */
-int emptyUnits(Player* p);
+int emptyUnits(Player *p);
 
 /**
 * @brief verifies if units is full
@@ -160,7 +160,7 @@ int emptyUnits(Player* p);
 * @param pointer to the player object
 * @return 1 -> true, 0->false
 */
-int fullUnits(Player* p);
+int fullUnits(Player *p);
 
 /**
 * @brief counts the number of units
@@ -168,7 +168,7 @@ int fullUnits(Player* p);
 * @param pointer to the player object
 * @return 1 -> true, 0->false
 */
-int countUnits(Player* p);
+int countUnits(Player *p);
 
 /**
 * @brief counts the number of defenses
@@ -176,7 +176,7 @@ int countUnits(Player* p);
 * @param pointer to the player object
 * @return 1 -> true, 0->false
 */
-int countDefenses(Player* p);
+int countDefenses(Player *p);
 
 /**
 * @brief counts the number of slots
@@ -184,7 +184,7 @@ int countDefenses(Player* p);
 * @param pointer to the player object
 * @return 1 -> true, 0->false
 */
-int countSlots(Player* p);
+int countSlots(Player *p);
 
 /**
 * @brief verifies if defenses is empty
@@ -192,7 +192,7 @@ int countSlots(Player* p);
 * @param pointer to the player object
 * @return 1 -> true, 0->false
 */
-int emptyDefenses(Player* p);
+int emptyDefenses(Player *p);
 
 /**
 * @brief verifies if defenses is full
@@ -200,7 +200,7 @@ int emptyDefenses(Player* p);
 * @param pointer to the player object
 * @return 1 -> true, 0->false
 */
-int fullDefenses(Player* p);
+int fullDefenses(Player *p);
 
 /**
 * @brief verifies if slots is empty
@@ -208,7 +208,7 @@ int fullDefenses(Player* p);
 * @param pointer to the player object
 * @return 1 -> true, 0->false
 */
-int emptySlots(Player* p);
+int emptySlots(Player *p);
 
 /**
 * @brief verifies if slots is full
@@ -216,7 +216,7 @@ int emptySlots(Player* p);
 * @param pointer to the player object
 * @return 1 -> true, 0->false
 */
-int fullSlots(Player* p);
+int fullSlots(Player *p);
 
 /**
 * @brief gives the new unit position
@@ -224,7 +224,7 @@ int fullSlots(Player* p);
 * @param pointer to the player object
 * @return position of the new unit
 */
-int newPosUnit(Player* p);
+int newPosUnit(Player *p);
 
 /**
 * @brief gives the new defense position
@@ -232,7 +232,7 @@ int newPosUnit(Player* p);
 * @param pointer to the player object
 * @return position of the new defense
 */
-int newPosDefense(Player* p);
+int newPosDefense(Player *p);
 
 /**
 * @brief gives the new slot position
@@ -240,7 +240,7 @@ int newPosDefense(Player* p);
 * @param pointer to the player object
 * @return position of the new defense
 */
-int newPosSlot(Player* p);
+int newPosSlot(Player *p);
 
 /**
 * @brief check if the unit is inside of the defense range
@@ -249,7 +249,7 @@ int newPosSlot(Player* p);
 * @param d - pointer to defense
 * @return 1 if true, 0 if false
 */
-int checkUnitsDefenseRange(Unit* u, Defense* d);
+int checkUnitsDefenseRange(Unit *u, Defense *d);
 
 /**
 * @brief check if there is collision between 2 units
@@ -258,7 +258,7 @@ int checkUnitsDefenseRange(Unit* u, Defense* d);
 * @param player - indicates the side of the player (1-> left, 2-> right)
 * @return 1 if true, 0 if false
 */
-int checkUnitCollisionSamePlayer(Unit* u1, Unit* u2, int player);
+int checkUnitCollisionSamePlayer(Unit *u1, Unit *u2, int player);
 
 /**
 * @brief check if there is collision between an unit and a tower
@@ -267,7 +267,7 @@ int checkUnitCollisionSamePlayer(Unit* u1, Unit* u2, int player);
 * @param t - pointer to tower
 * @return 1 if true, 0 if false
 */
-int checkUnitsTowerCollision(Unit* u, Tower* t);
+int checkUnitsTowerCollision(Unit *u, Tower *t);
 
 /**
 * @brief check if there is collision between a bullet and an unit
@@ -276,7 +276,7 @@ int checkUnitsTowerCollision(Unit* u, Tower* t);
 * @param t - pointer to tower
 * @return 1 if true, 0 if false
 */
-int checkBulletsTowerCollision(Bullet* b, Tower* t);
+int checkBulletsTowerCollision(Bullet *b, Tower *t);
 
 /**
 * @brief check if the tower is inside of the unit range
@@ -285,7 +285,7 @@ int checkBulletsTowerCollision(Bullet* b, Tower* t);
 * @param t - pointer to tower
 * @return 1 if true, 0 if false
 */
-int checkUnitTowerRange(Unit* u, Tower* t);
+int checkUnitTowerRange(Unit *u, Tower *t);
 
 /**
 * @brief delete an unit from the array of units
@@ -293,7 +293,7 @@ int checkUnitTowerRange(Unit* u, Tower* t);
 * @param pointer to the player object
 * @return
 */
-void removeUnit(Player* p);
+void removeUnit(Player *p);
 
 /**
 * @brief delete a defense from the array of defenses
@@ -301,7 +301,7 @@ void removeUnit(Player* p);
 * @param pointer to the player object
 * @return
 */
-void removeDefense(Player* p);
+void removeDefense(Player *p);
 
 /**
 * @brief delete a slot from the array of slots
@@ -309,7 +309,7 @@ void removeDefense(Player* p);
 * @param pointer to the player object
 * @return
 */
-void removeSlot(Player* p);
+void removeSlot(Player *p);
 
 /** @} end of Player */
 

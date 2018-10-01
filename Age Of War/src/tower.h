@@ -23,17 +23,17 @@
 
 typedef struct Tower {
 
-	int hp;
-	int x;
-	int y;
-	int player;
+    int hp;
+    int x;
+    int y;
+    int player;
 
-	int width;
-	int height;
+    int width;
+    int height;
 
-	Bitmap* tower_bmp;
+    Bitmap *tower_bmp;
 
-}Tower;
+} Tower;
 
 /**
 * @brief initiates tower object
@@ -45,7 +45,7 @@ typedef struct Tower {
 
 * @return pointer to the tower struct
 */
-Tower* InitTower(int x, int hp, char* name_tower, int player);
+Tower *InitTower(int x, int hp, char *name_tower, int player);
 
 /**
 * @brief draws the tower to the second buffer
@@ -56,7 +56,7 @@ Tower* InitTower(int x, int hp, char* name_tower, int player);
 * @param life_current	current life of the tower
 * @return
 */
-void DrawTower(Tower *t, char* doubleBuffer,int life_max, int life_current);
+void DrawTower(Tower *t, char *doubleBuffer, int life_max, int life_current);
 
 /**
 * @brief sets player's tower bitmap to another
@@ -65,7 +65,7 @@ void DrawTower(Tower *t, char* doubleBuffer,int life_max, int life_current);
 * @param name_tower - name of tower's image
 * @return
 */
-void setTower(Tower* t, char* name_tower);
+void setTower(Tower *t, char *name_tower);
 
 
 /**
@@ -75,7 +75,7 @@ void setTower(Tower* t, char* name_tower);
 * @param hp - new hp
 * @return
 */
-void towerSetHP(Tower* t, int newHP);
+void towerSetHP(Tower *t, int newHP);
 
 /**
 * @brief delete tower

@@ -99,13 +99,13 @@
 
 #define MOUSE_HOOK_ID 5
 
-#define EDR	0xF4 //enable data report
+#define EDR    0xF4 //enable data report
 
-#define DDR	0xF5 //disable data report
+#define DDR    0xF5 //disable data report
 
-#define SSME	0xEA //stream enable
+#define SSME    0xEA //stream enable
 
-#define SSMD	0xFA //stream disable
+#define SSMD    0xFA //stream disable
 
 #define STATUS_REQUEST 0xE9
 

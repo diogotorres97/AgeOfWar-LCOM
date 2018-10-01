@@ -11,9 +11,9 @@
 */
 
 typedef struct {
-	Bitmap* back_bmp;
+    Bitmap *back_bmp;
 
-}Terrain;
+} Terrain;
 
 /**
 * @brief initialize the terrain
@@ -21,7 +21,7 @@ typedef struct {
 * @param
 * @return pointer to terrain struct
 */
-Terrain* InitTerrain(int level);
+Terrain *InitTerrain(int level);
 
 /**
 * @brief draw all bitmaps that belong to terrain struct
@@ -29,7 +29,7 @@ Terrain* InitTerrain(int level);
 * @param pointer to terrain struct
 * @return
 */
-void drawTerrain(Terrain* terr, char* doubleBuffer);
+void drawTerrain(Terrain *terr, char *doubleBuffer);
 
 /**
 * @brief delete all resources allocated by the terrain struct
@@ -37,7 +37,7 @@ void drawTerrain(Terrain* terr, char* doubleBuffer);
 * @param pointer to terrain struct
 * @return
 */
-void deleteTerrain(Terrain* terr);
+void deleteTerrain(Terrain *terr);
 
 /** @} end of Terrain */
 

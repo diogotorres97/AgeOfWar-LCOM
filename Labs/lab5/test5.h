@@ -51,8 +51,8 @@ int test_square(unsigned short x, unsigned short y, unsigned short size, unsigne
  * @param color color of the line segment to draw
  * @return 0 upon success, non-zero upon failure
  */
-int test_line(unsigned short xi, unsigned short yi, 
-		unsigned short xf, unsigned short yf, unsigned long color);
+int test_line(unsigned short xi, unsigned short yi,
+              unsigned short xf, unsigned short yf, unsigned long color);
 
 /**
  * @brief Tests drawing XPM on the screen at specified coordinates

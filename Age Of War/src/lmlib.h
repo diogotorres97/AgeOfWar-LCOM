@@ -14,9 +14,9 @@
 */
 
 typedef struct {
-	phys_bytes phys;	/**< @brief physical address */
-	void *virtual;	/**< @brief virtual address */
-	unsigned long size;   /**< @brief size of memory region */
+    phys_bytes phys;    /**< @brief physical address */
+    void *virtual;    /**< @brief virtual address */
+    unsigned long size;   /**< @brief size of memory region */
 } mmap_t;
 
 /** @} end of Memory Map Struct */

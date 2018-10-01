@@ -11,15 +11,15 @@
 
 typedef struct {
 
-	int x;
-	int y;
-	int width;
-	int height;
-	int player;
+    int x;
+    int y;
+    int width;
+    int height;
+    int player;
 
-	Bitmap* slot_bmp;
+    Bitmap *slot_bmp;
 
-}Slot;
+} Slot;
 
 /**
 * @brief initiates slot object
@@ -32,7 +32,7 @@ typedef struct {
 *
 * @return pointer to the slot struct
 */
-Slot* InitSlot(int x, int y, char* name_slot, int player, int first);
+Slot *InitSlot(int x, int y, char *name_slot, int player, int first);
 
 /**
 * @brief draws the slot to the second buffer
@@ -41,7 +41,7 @@ Slot* InitSlot(int x, int y, char* name_slot, int player, int first);
 * @param pointer to doubleBuffer
 * @return
 */
-void drawSlot(Slot* s, char* doubleBuffer);
+void drawSlot(Slot *s, char *doubleBuffer);
 
 /**
 * @brief  slot bitmap to another
@@ -52,7 +52,7 @@ void drawSlot(Slot* s, char* doubleBuffer);
 * @param y - y to set
 * @return
 */
-void setSlot(Slot* s, char* name_slot, int x, int y);
+void setSlot(Slot *s, char *name_slot, int x, int y);
 
 /**
 * @brief delete slot

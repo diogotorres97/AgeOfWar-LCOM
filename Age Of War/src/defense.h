@@ -23,22 +23,22 @@
 typedef struct Defense {
 
 
-	int x;
-	int y;
-	int player;
-	int range;
-	int strength;
-	int price;
+    int x;
+    int y;
+    int player;
+    int range;
+    int strength;
+    int price;
 
 
-	int width;
-	int height;
+    int width;
+    int height;
 
-	Bullet* bullets[MAX_BULLETS];
+    Bullet *bullets[MAX_BULLETS];
 
-	Bitmap* defense_bmp;
+    Bitmap *defense_bmp;
 
-}Defense;
+} Defense;
 
 /**
 * @brief initiates defense object
@@ -52,7 +52,7 @@ typedef struct Defense {
 
 * @return pointer to the unit struct
 */
-Defense* InitDefense(int x, int y, int strength, char* name_defense, int price, int player, int range);
+Defense *InitDefense(int x, int y, int strength, char *name_defense, int price, int player, int range);
 
 /**
 * @brief draws the defense to the second buffer
@@ -61,7 +61,7 @@ Defense* InitDefense(int x, int y, int strength, char* name_defense, int price, 
 * pointer to doubleBuffer
 * @return
 */
-void DrawDefense(Defense *d, char* doubleBuffer);
+void DrawDefense(Defense *d, char *doubleBuffer);
 
 /**
 * @brief verifies if bullets are empty
@@ -69,7 +69,7 @@ void DrawDefense(Defense *d, char* doubleBuffer);
 * @param pointer to the unit object
 * @return 1 -> true, 0->false
 */
-int emptyBulletsDefenses(Defense* d);
+int emptyBulletsDefenses(Defense *d);
 
 /**
 * @brief verifies if bullets are full
@@ -77,7 +77,7 @@ int emptyBulletsDefenses(Defense* d);
 * @param pointer to the unit object
 * @return 1 -> true, 0->false
 */
-int fullBulletsDefenses(Defense* d);
+int fullBulletsDefenses(Defense *d);
 
 /**
 * @brief delete a bullet from the array of bullets
@@ -85,7 +85,7 @@ int fullBulletsDefenses(Defense* d);
 * @param pointer to the defense object
 * @return
 */
-void removeBulletDefense(Defense* d);
+void removeBulletDefense(Defense *d);
 
 /**
 * @brief adds a bullet to a defense
@@ -94,7 +94,7 @@ void removeBulletDefense(Defense* d);
 * @param pointer to the bullet object
 * @return
 */
-void addBulletsDefense(Defense* d, Bullet* b);
+void addBulletsDefense(Defense *d, Bullet *b);
 
 /**
 * @brief delete defense

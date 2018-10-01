@@ -16,11 +16,11 @@
  */
 
 typedef struct {
-	Bitmap* character;
+    Bitmap *character;
 } Font;
 
 typedef struct {
-	Bitmap** numbers;
+    Bitmap **numbers;
 } DateFont;
 
 /**
@@ -29,7 +29,7 @@ typedef struct {
  * @param
  * @return pointer to the font struct
  */
-Font* InitFont();
+Font *InitFont();
 
 /**
  * @brief this function draws on the buffer the char passed as arg
@@ -41,7 +41,7 @@ Font* InitFont();
  * @param doubleBuffer buffer to be drawn to
  * @return
  */
-void drawChar(Font *font, char ch, int x, int y,char* doubleBuffer);
+void drawChar(Font *font, char ch, int x, int y, char *doubleBuffer);
 
 /**
  * @brief this function draws on the buffer the text passed as arg. In order to do this it calls the function draw char to each character in the text
@@ -53,7 +53,7 @@ void drawChar(Font *font, char ch, int x, int y,char* doubleBuffer);
  * @param doubleBuffer buffer to be drawn to
  * @return
  */
-void drawText(Font *font, char text[], int x, int y,char* doubleBuffer);
+void drawText(Font *font, char text[], int x, int y, char *doubleBuffer);
 
 /**
  * @brief free all resources used by the Font struct
@@ -61,13 +61,13 @@ void drawText(Font *font, char text[], int x, int y,char* doubleBuffer);
  * @param pointer to struct font
  * @return
  */
-Font* deleteFont(Font* font);
+Font *deleteFont(Font *font);
 
 /**
  * @brief Initiates date
  * @return
  */
-DateFont* InitDateFont() ;
+DateFont *InitDateFont();
 
 /**
  * @brief Draws a date's char
@@ -79,14 +79,15 @@ DateFont* InitDateFont() ;
  * @param doubleBuffer buffer to be drawn to
  * @return
  */
-void drawDateChar(DateFont *f, int number, int x, int y, char* doubleBuffer);
+void drawDateChar(DateFont *f, int number, int x, int y, char *doubleBuffer);
+
 /**
  * @brief free all resources used by the DateFont struct
  *
  * @param f
  * @return
  */
-void deleteDateFont(DateFont* f);
+void deleteDateFont(DateFont *f);
 
 /** @} end of Font */
 

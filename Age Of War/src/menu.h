@@ -16,31 +16,31 @@
  * Functions related to the Menus
  */
 
-#define MenuWidth       	419
-#define MenuHeight      	42
+#define MenuWidth        419
+#define MenuHeight        42
 
 #define MultiPlayer1X       297
 #define MultiPlayer1Y       434
 
 #define MultiPlayer2X       299
-#define MultiPlayer2Y   	455
+#define MultiPlayer2Y    455
 
-#define StatisticsX       	298
-#define StatisticsY       	498
+#define StatisticsX        298
+#define StatisticsY        498
 
-#define CreditsX       		299
-#define CreditsY      		566
+#define CreditsX            299
+#define CreditsY            566
 
-#define ExitX       		299
-#define ExitY       		631
+#define ExitX            299
+#define ExitY            631
 
 //Pause Menu
-#define PauseWitdh			485
-#define PauseHeight			60
-#define ResumeX       		278
-#define ResumeY       		480
-#define Exit2X       		276
-#define Exit2Y       		584
+#define PauseWitdh            485
+#define PauseHeight            60
+#define ResumeX            278
+#define ResumeY            480
+#define Exit2X            276
+#define Exit2Y            584
 
 //HighScore
 
@@ -51,17 +51,17 @@
 //****************************************Main Menu****************************************//
 
 typedef struct {
-	Bitmap* MainMenuBMP;
+    Bitmap *MainMenuBMP;
 
-	int multiplayer1;
-	int multiplayer2;
-	int statistics;
-	int credits;
-	int exit;
-	int option;
+    int multiplayer1;
+    int multiplayer2;
+    int statistics;
+    int credits;
+    int exit;
+    int option;
 
-	char* menuBuffer;
-}MainMenu;
+    char *menuBuffer;
+} MainMenu;
 
 /**
  * @brief init of main menu struct
@@ -69,7 +69,7 @@ typedef struct {
  * @param
  * @return pointer to the main menu struct
  */
-MainMenu* InitMainMenu();
+MainMenu *InitMainMenu();
 
 /**
  * @brief update all the flags accordingly to mouse input
@@ -79,7 +79,7 @@ MainMenu* InitMainMenu();
  * @return
  */
 
-void updateMainMenu(MainMenu* mm, Mouse* mouse);
+void updateMainMenu(MainMenu *mm, Mouse *mouse);
 
 /**
  * @brief draw all bmps to the buffer
@@ -87,7 +87,7 @@ void updateMainMenu(MainMenu* mm, Mouse* mouse);
  * @param pointer to the main menu struct
  * @return
  */
-void drawMainMenu(MainMenu* mm);
+void drawMainMenu(MainMenu *mm);
 
 /**
  * @brief free all resources allocated by main menu struct
@@ -95,7 +95,7 @@ void drawMainMenu(MainMenu* mm);
  * @param pointer to the main menu struct
  * @return
  */
-void deleteMainMenu(MainMenu* mm);
+void deleteMainMenu(MainMenu *mm);
 
 /**
  * @brief check if mouse actual position is over the bmp
@@ -103,25 +103,25 @@ void deleteMainMenu(MainMenu* mm);
  * @param x and y are the initial coordinates of the bmp
  * @return 0 if is over, 1 otherwise
  */
-int MouseOverBMP(int x, int y, int width, int height, Mouse* mouse);
+int MouseOverBMP(int x, int y, int width, int height, Mouse *mouse);
 
 /**
  * resets te flags
  * @param mm
  */
-void resetFlagsMenu(MainMenu* mm);
+void resetFlagsMenu(MainMenu *mm);
 
 //***************************************Pause Menu****************************************//
 
 typedef struct {
-	Bitmap* PauseMenuBMP;
+    Bitmap *PauseMenuBMP;
 
-	int resume;
-	int exit;
+    int resume;
+    int exit;
 
-	int option;
-	char* pauseBuffer;
-}PauseMenu;
+    int option;
+    char *pauseBuffer;
+} PauseMenu;
 
 /**
  * @brief init of pause menu struct
@@ -129,7 +129,7 @@ typedef struct {
  * @param
  * @return pointer to the pause menu struct
  */
-PauseMenu* InitPauseMenu();
+PauseMenu *InitPauseMenu();
 
 /**
  * @brief update all the flags accordingly to mouse input
@@ -138,7 +138,7 @@ PauseMenu* InitPauseMenu();
  * @param mouse pointer to the mouse struct
  * @return
  */
-void updatePauseMenu(PauseMenu* mm, Mouse* mouse);
+void updatePauseMenu(PauseMenu *mm, Mouse *mouse);
 
 /**
  * @brief draw all bmps to the buffer
@@ -146,7 +146,7 @@ void updatePauseMenu(PauseMenu* mm, Mouse* mouse);
  * @param pointer to the pause menu struct
  * @return
  */
-void drawPauseMenu(PauseMenu* mm);
+void drawPauseMenu(PauseMenu *mm);
 
 /**
  * @brief free all resources allocated by pause menu struct
@@ -154,21 +154,21 @@ void drawPauseMenu(PauseMenu* mm);
  * @param pointer to the pause menu struct
  * @return
  */
-void deletePauseMenu(PauseMenu* mm);
+void deletePauseMenu(PauseMenu *mm);
 
 //***************************************HighScores****************************************//
 
 typedef struct {
-	Bitmap* StatisticsBMP;
-	int counter;
-	Font* font;
+    Bitmap *StatisticsBMP;
+    int counter;
+    Font *font;
 
-	int exit;
-	int flag;
-	int option;
-	char* statsBuffer;
-	char** lines;
-}Statistics;
+    int exit;
+    int flag;
+    int option;
+    char *statsBuffer;
+    char **lines;
+} Statistics;
 
 /**
  * @brief init of highscores struct
@@ -176,7 +176,7 @@ typedef struct {
  * @param
  * @return pointer to the highscores struct
  */
-Statistics* InitStatistics();
+Statistics *InitStatistics();
 
 /**
  * @brief update all the flags accordingly to mouse input
@@ -185,7 +185,7 @@ Statistics* InitStatistics();
  * @param mouse pointer to the mouse struct
  * @return
  */
-void updateStatistics(Statistics* hs, Mouse* mouse);
+void updateStatistics(Statistics *hs, Mouse *mouse);
 
 /**
  * @brief draw all bmps to the buffer
@@ -193,7 +193,7 @@ void updateStatistics(Statistics* hs, Mouse* mouse);
  * @param pointer to highscores struct
  * @return
  */
-void drawStatistics(Statistics* hs);
+void drawStatistics(Statistics *hs);
 
 /**
  * @brief free all resources allocated by highscores struct
@@ -201,18 +201,18 @@ void drawStatistics(Statistics* hs);
  * @param pointer to highscores struct
  * @return
  */
-void deleteStatistics(Statistics* hs);
+void deleteStatistics(Statistics *hs);
 
 //***************************************Credits****************************************//
 
 typedef struct {
-	Bitmap* CreditsBMP;
+    Bitmap *CreditsBMP;
 
-	int exit;
+    int exit;
 
-	int option;
-	char* creditsBuffer;
-}Credits;
+    int option;
+    char *creditsBuffer;
+} Credits;
 
 /**
  * @brief init of credits struct
@@ -220,7 +220,7 @@ typedef struct {
  * @param
  * @return pointer to the credits struct
  */
-Credits* InitCredits();
+Credits *InitCredits();
 
 /**
  * @brief update all the flags accordingly to mouse input
@@ -229,7 +229,7 @@ Credits* InitCredits();
  * @param mouse pointer to mouse
  * @return
  */
-void updateCredits(Credits* cr, Mouse* mouse);
+void updateCredits(Credits *cr, Mouse *mouse);
 
 /**
  * @brief draw all bmps to the buffer
@@ -237,7 +237,7 @@ void updateCredits(Credits* cr, Mouse* mouse);
  * @param pointer to credits struct
  * @return
  */
-void drawCredits(Credits* cr);
+void drawCredits(Credits *cr);
 
 /**
  * @brief free all resources allocated by credits struct
@@ -245,28 +245,28 @@ void drawCredits(Credits* cr);
  * @param pointer to credits struct
  * @return
  */
-void deleteCredits(Credits* cr);
+void deleteCredits(Credits *cr);
 
 //***************************************SaveMenu****************************************//
 
-typedef struct{
-	Bitmap* SaveBMP;
-	char key;
-	char name1[10];
-	char name2[10];
-	int score1;
-	int score2;
-	int exit;
-	int option;
+typedef struct {
+    Bitmap *SaveBMP;
+    char key;
+    char name1[10];
+    char name2[10];
+    int score1;
+    int score2;
+    int exit;
+    int option;
 
-	int counter;
-	int flag_1;
-	int flag_2;
+    int counter;
+    int flag_1;
+    int flag_2;
 
-	char* saveBuffer;
+    char *saveBuffer;
 
 
-}SaveMenu;
+} SaveMenu;
 
 /**
  * @brief init of SaveMenu struct
@@ -275,7 +275,7 @@ typedef struct{
  * @param score2
  * @return pointer to the SaveMenu struct
  */
-SaveMenu* InitSaveMenu(int score1, int score2);
+SaveMenu *InitSaveMenu(int score1, int score2);
 
 /**
  * @brief update all the flags accordingly to mouse input
@@ -284,7 +284,7 @@ SaveMenu* InitSaveMenu(int score1, int score2);
  * @param mouse pointer to mouse
  * @return
  */
-void updateSaveMenu(SaveMenu* sm, Mouse* mouse);
+void updateSaveMenu(SaveMenu *sm, Mouse *mouse);
 
 /**
  * @brief draw all bmps to the buffer
@@ -292,7 +292,7 @@ void updateSaveMenu(SaveMenu* sm, Mouse* mouse);
  * @param pointer to SaveMenu struct
  * @return
  */
-void drawSaveMenu(SaveMenu* sm);
+void drawSaveMenu(SaveMenu *sm);
 
 /**
  * @brief free all resources allocated by SaveMenu struct
@@ -300,7 +300,7 @@ void drawSaveMenu(SaveMenu* sm);
  * @param pointer to SaveMenu struct
  * @return
  */
-void deleteSaveMenu(SaveMenu* sm);
+void deleteSaveMenu(SaveMenu *sm);
 
 /**
  * @brief check if the key passed as parameter is eligible and if so, letter1, 2 or 3 is set, accordingly to the mouse position
@@ -308,7 +308,7 @@ void deleteSaveMenu(SaveMenu* sm);
  * @param pointer to SaveMenu struct and key
  * @return
  */
-void kbdSaveHandler(SaveMenu* sm, unsigned long key);
+void kbdSaveHandler(SaveMenu *sm, unsigned long key);
 
 /** @} end of Menu */
 

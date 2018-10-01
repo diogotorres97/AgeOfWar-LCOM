@@ -15,34 +15,34 @@
 * Functions that are executed by bullets
 */
 
-#define Bullet_X_Speed		5  //Bullet x speed
-#define Bullet_Y_Speed		3  //Bullet y speed
+#define Bullet_X_Speed        5  //Bullet x speed
+#define Bullet_Y_Speed        3  //Bullet y speed
 
 
 typedef enum {
-	move,
-	destroyed,
-}BulletActualState;
+    move,
+    destroyed,
+} BulletActualState;
 
 
 typedef struct Bullet {
 
-	int x;
-	int y;
-	int vel_x;
-	int vel_y;
+    int x;
+    int y;
+    int vel_x;
+    int vel_y;
 
-	int width;
-	int height;
-	int player;
-	int strength;
+    int width;
+    int height;
+    int player;
+    int strength;
 
-	int type_of_bullet; //defense or unit bullet
+    int type_of_bullet; //defense or unit bullet
 
-	BulletActualState BulletS;
+    BulletActualState BulletS;
 
-	Bitmap* bullet_bmp;
-}Bullet;
+    Bitmap *bullet_bmp;
+} Bullet;
 
 
 /**
@@ -56,7 +56,7 @@ typedef struct Bullet {
 * @param name_unit - name of bullet image
 * @return pointer to the bullet struct
 */
-Bullet* InitBullet(int x, int y, int strength, int player, int type_of_bullet, char* name_bullet);
+Bullet *InitBullet(int x, int y, int strength, int player, int type_of_bullet, char *name_bullet);
 
 
 /**
@@ -66,14 +66,15 @@ Bullet* InitBullet(int x, int y, int strength, int player, int type_of_bullet, c
 * @param d - pointer to defense
 * @return 1 if true, 0 if false
 */
-int checkBulletFloorCollision(Bullet* b);
+int checkBulletFloorCollision(Bullet *b);
+
 /**
 * @brief update bullet x and y
 *
 * @param pointer to bullet
 * @return
 */
-void moveBullet(Bullet* b, int dist_x, int dist_y);
+void moveBullet(Bullet *b, int dist_x, int dist_y);
 
 /**
 * @brief draw bullet to second buffer
@@ -81,7 +82,7 @@ void moveBullet(Bullet* b, int dist_x, int dist_y);
 * @param pointer to bullet
 * @return
 */
-void drawBullet(Bullet* b, char* doubleBuffer);
+void drawBullet(Bullet *b, char *doubleBuffer);
 
 /**
 * @brief delete bullet
@@ -89,7 +90,7 @@ void drawBullet(Bullet* b, char* doubleBuffer);
 * @param pointer to bullet
 * @return
 */
-void deleteBullet(Bullet* b);
+void deleteBullet(Bullet *b);
 
 /** @} end of Bullet */
 

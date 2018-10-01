@@ -12,34 +12,34 @@
 #include "video_gr.h"
 
 typedef enum {
-	ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT
+    ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT
 } Alignment;
 
 typedef struct {
-	unsigned short type; // specifies the file type
-	unsigned int size; // specifies the size in bytes of the bitmap file
-	unsigned int reserved; // reserved; must be 0
-	unsigned int offset; // specifies the offset in bytes from the bitmapfileheader to the bitmap bits
+    unsigned short type; // specifies the file type
+    unsigned int size; // specifies the size in bytes of the bitmap file
+    unsigned int reserved; // reserved; must be 0
+    unsigned int offset; // specifies the offset in bytes from the bitmapfileheader to the bitmap bits
 } BitmapFileHeader;
 
 typedef struct {
-	unsigned int size; // specifies the number of bytes required by the struct
-	int width; // specifies width in pixels
-	int height; // specifies height in pixels
-	unsigned short planes; // specifies the number of color planes, must be 1
-	unsigned short bits; // specifies the number of bit per pixel
-	unsigned int compression; // specifies the type of compression
-	unsigned int imageSize; // size of image in bytes
-	int xResolution; // number of pixels per meter in x axis
-	int yResolution; // number of pixels per meter in y axis
-	unsigned int nColors; // number of colors used by the bitmap
-	unsigned int importantColors; // number of colors that are important
+    unsigned int size; // specifies the number of bytes required by the struct
+    int width; // specifies width in pixels
+    int height; // specifies height in pixels
+    unsigned short planes; // specifies the number of color planes, must be 1
+    unsigned short bits; // specifies the number of bit per pixel
+    unsigned int compression; // specifies the type of compression
+    unsigned int imageSize; // size of image in bytes
+    int xResolution; // number of pixels per meter in x axis
+    int yResolution; // number of pixels per meter in y axis
+    unsigned int nColors; // number of colors used by the bitmap
+    unsigned int importantColors; // number of colors that are important
 } BitmapInfoHeader;
 
 /// Represents a Bitmap
 typedef struct {
-	BitmapInfoHeader bitmapInfoHeader;
-	unsigned char* bitmapData;
+    BitmapInfoHeader bitmapInfoHeader;
+    unsigned char *bitmapData;
 } Bitmap;
 
 /**
@@ -48,7 +48,7 @@ typedef struct {
  * @param filename Path of the image to load
  * @return Non NULL pointer to the image buffer
  */
-Bitmap* loadBitmap(const char* filename);
+Bitmap *loadBitmap(const char *filename);
 
 /**
  * @brief Draws an unscaled, unrotated bitmap at the given position
@@ -59,14 +59,14 @@ Bitmap* loadBitmap(const char* filename);
  * @param alignment image alignment
  * @param buffer buffer to be drawn to
  */
-void drawBitmap(Bitmap* bitmap, int x, int y, Alignment alignment, char* buffer);
+void drawBitmap(Bitmap *bitmap, int x, int y, Alignment alignment, char *buffer);
 
 /**
  * @brief Destroys the given bitmap, freeing all resources used by it.
  *
  * @param bitmap bitmap to be destroyed
  */
-void deleteBitmap(Bitmap* bmp);
+void deleteBitmap(Bitmap *bmp);
 
 /**
  * @brief Gets an image path
@@ -74,7 +74,7 @@ void deleteBitmap(Bitmap* bmp);
  * @param filename - name of the image
  * @return str with the path
  */
-const char* getImagePath(const char* img);
+const char *getImagePath(const char *img);
 
 /**
  * @brief Draws an image without painting a certain color
@@ -85,5 +85,5 @@ const char* getImagePath(const char* img);
  * @param alignment image alignment
  * @param buffer buffer to be drawn to
  */
-void bitmap_draw_transparency(Bitmap* bmp, int x, int y, Alignment alignment, char* buffer);
+void bitmap_draw_transparency(Bitmap *bmp, int x, int y, Alignment alignment, char *buffer);
 /**@} end of bitmap*/
